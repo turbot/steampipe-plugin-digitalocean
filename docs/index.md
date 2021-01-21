@@ -1,14 +1,16 @@
 ---
-Title: DigitalOcean
-Organization: Turbot HQ, Inc
-iconURL: https://turbot.com/images/turbot-icon-original.png
-
+organization: Turbot
+category: ["public cloud"]
+icon_url: "/images/plugins/turbot/digitalocean.svg"
+brand_color: "#008bcf"
+display_name: "DigitalOcean"
+name: "digitalocean"
+description: "Steampipe plugin for querying DigitalOcean databases, networks, and other resources."
 ---
 
 # DigitalOcean
 
 Query your DigitalOcean infrastructure including droplets, databases, networks and more.
-
 
 ## Installation
 
@@ -19,7 +21,6 @@ $ steampipe plugin install digitalocean
 Installing plugin digitalocean...
 $
 ```
-
 
 ## Configure API Token
 
@@ -33,11 +34,11 @@ export DIGITALOCEAN_TOKEN="xoxp-2556146250-EXAMPLE-1646968370949-df954218b5da5b8
 ```
 
 Similar to Terraform, API tokens are loaded from the environment in this order of precedence:
-* `DIGITALOCEAN_TOKEN`
-* `DIGITALOCEAN_ACCESS_TOKEN`
+
+- `DIGITALOCEAN_TOKEN`
+- `DIGITALOCEAN_ACCESS_TOKEN`
 
 Steampipe does not yet automatically load `doctl` configuration files.
-
 
 ## Your first query
 
