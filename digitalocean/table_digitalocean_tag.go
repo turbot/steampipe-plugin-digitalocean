@@ -56,6 +56,7 @@ func listTag(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (i
 		}
 		page, err := resp.Links.CurrentPage()
 		if err != nil {
+			plugin.Logger(ctx).Error("digitalocean_tag.listTag", "paging_error", err, "opts", opts, "page", page)
 			return nil, err
 		}
 		// set the page we want for the next request

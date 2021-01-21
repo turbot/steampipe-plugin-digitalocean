@@ -35,6 +35,7 @@ Learn about [Steampipe](https://steampipe.io/).
 **[Table documentation and examples &rarr;](https://hub.steampipe.io/plugins/turbot/digitalocean)**
 
 Install the plugin:
+
 ```shell
 steampipe plugin install digitalocean
 ```

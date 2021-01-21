@@ -32,7 +32,7 @@ func tableDigitalOceanVPC(ctx context.Context) *plugin.Table {
 			{Name: "ip_range", Type: proto.ColumnType_CIDR, Description: "The range of IP addresses in the VPC in CIDR notation."},
 			// Rename to avoid conflict with default keyword in postgres
 			{Name: "is_default", Type: proto.ColumnType_BOOL, Transform: transform.FromField("Default"), Description: "A boolean value indicating whether or not the VPC is the default network for the region. All applicable resources are placed into the default VPC network unless otherwise specified during their creation. The `default` field cannot be unset from `true`. If you want to set a new default VPC network, update the `default` field of another VPC network in the same region. The previous network's `default` field will be set to `false` when a new default VPC has been defined."},
-			{Name: "region", Type: proto.ColumnType_STRING, Description: "The slug identifier for the region where the VPC will be created."},
+			{Name: "region_slug", Type: proto.ColumnType_STRING, Transform: transform.FromField("RegionSlug"), Description: "The slug identifier for the region where the VPC will be created."},
 			{Name: "urn", Type: proto.ColumnType_STRING, Transform: transform.FromField("URN"), Description: "The uniform resource name (URN) for the VPC."},
 			// Resource interface
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromField("URN").Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},

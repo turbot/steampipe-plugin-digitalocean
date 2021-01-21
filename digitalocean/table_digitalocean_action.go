@@ -2,6 +2,7 @@ package digitalocean
 
 import (
 	"context"
+	"strings"
 
 	"github.com/digitalocean/godo"
 
@@ -10,46 +11,38 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/plugin/transform"
 )
 
-func tableDigitalOceanAction() *plugin.Table {
+func tableDigitalOceanAction(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "digitalocean_action",
-		Description: "Actions are records of events that have occurred on the resources in your account. These can be things like rebooting a Droplet, or transferring an image to a new region.",
+		Description: "Actions are records of events that have occurred on the resources in your account. These can be things like rebooting a Action, or transferring an image to a new region.",
 		List: &plugin.ListConfig{
 			Hydrate: listAction,
 		},
 		Get: &plugin.GetConfig{
-			KeyColumns:  plugin.SingleColumn("id"),
-			ItemFromKey: actionFromKey,
-			Hydrate:     getAction,
+			KeyColumns: plugin.SingleColumn("id"),
+			Hydrate:    getAction,
 		},
 		Columns: []*plugin.Column{
 			// Top columns
 			{Name: "id", Type: proto.ColumnType_INT, Description: "A unique numeric ID that can be used to identify and reference an action."},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: "This is the type of action that the object represents.  For example, this could be \"transfer\" to represent the state of an image transfer action."},
-			// Other columns
-			{Name: "completed_at", Type: proto.ColumnType_STRING, Transform: transform.FromField("CompletedAt").Transform(timestampToDateTime), Description: "A time value given in ISO8601 combined date and time format that represents when the action was completed."},
-			{Name: "region_name", Type: proto.ColumnType_STRING, Transform: transform.FromField("Region.Name")},
-			{Name: "region_slug", Type: proto.ColumnType_STRING, Description: "The region where the action occurred."},
 			{Name: "resource_id", Type: proto.ColumnType_INT, Description: "A unique identifier for the resource that the action is associated with."},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "This is the type of action that the object represents.  For example, this could be \"transfer\" to represent the state of an image transfer action."},
+			{Name: "started_at", Type: proto.ColumnType_TIMESTAMP, Transform: transform.FromField("StartedAt").Transform(timestampToIsoTimestamp), Description: "Time when when the action was initiated."},
+			// Other columns
+			{Name: "completed_at", Type: proto.ColumnType_TIMESTAMP, Transform: transform.FromField("CompletedAt").Transform(timestampToIsoTimestamp), Description: "Time when the action was completed."},
+			// Skip this object dump for now, they can join on the slug if really necessary
+			//{Name: "region", Type: proto.ColumnType_JSON, Transform: transform.FromField("Region"), Description: "A full region object containing information about the region where the action occurred."},
+			{Name: "region_slug", Type: proto.ColumnType_STRING, Description: "The region where the action occurred."},
 			{Name: "resource_type", Type: proto.ColumnType_STRING, Description: "The type of resource that the action is associated with."},
-			{Name: "started_at", Type: proto.ColumnType_STRING, Transform: transform.FromField("StartedAt").Transform(timestampToDateTime), Description: "A time value given in ISO8601 combined date and time format that represents when the action was initiated."},
 			{Name: "status", Type: proto.ColumnType_STRING, Description: "The current status of the action.  This can be \"in-progress\", \"completed\", or \"errored\"."},
 		},
 	}
 }
 
-func actionFromKey(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	quals := d.KeyColumnQuals
-	id := quals["id"].GetInt64Value()
-	item := &godo.Action{
-		ID: int(id),
-	}
-	return item, nil
-}
-
 func listAction(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := connect(ctx)
 	if err != nil {
+		plugin.Logger(ctx).Error("digitalocean_action.listAction", "connection_error", err)
 		return nil, err
 	}
 	opts := &godo.ListOptions{
@@ -59,6 +52,7 @@ func listAction(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 	for {
 		actions, resp, err := conn.Actions.List(ctx, opts)
 		if err != nil {
+			plugin.Logger(ctx).Error("digitalocean_action.listAction", "query_error", err, "opts", opts)
 			return nil, err
 		}
 		for _, t := range actions {
@@ -70,6 +64,7 @@ func listAction(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 		}
 		page, err := resp.Links.CurrentPage()
 		if err != nil {
+			plugin.Logger(ctx).Error("digitalocean_action.listAction", "paging_error", err, "opts", opts, "page", page)
 			return nil, err
 		}
 		// set the page we want for the next request
@@ -79,13 +74,20 @@ func listAction(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 }
 
 func getAction(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	action := h.Item.(*godo.Action)
 	conn, err := connect(ctx)
 	if err != nil {
+		plugin.Logger(ctx).Error("digitalocean_action.getAction", "connection_error", err)
 		return nil, err
 	}
-	result, _, err := conn.Actions.Get(ctx, action.ID)
+	quals := d.KeyColumnQuals
+	id := int(quals["id"].GetInt64Value())
+	result, resp, err := conn.Actions.Get(ctx, id)
 	if err != nil {
+		if strings.Contains(err.Error(), ": 404") {
+			plugin.Logger(ctx).Warn("digitalocean_action.getAction", "not_found_error", err, "quals", quals, "resp", resp)
+			return nil, nil
+		}
+		plugin.Logger(ctx).Error("digitalocean_action.getAction", "query_error", err, "quals", quals, "resp", resp)
 		return nil, err
 	}
 	return result, nil

@@ -39,8 +39,11 @@ func tableDigitalOceanDroplet(ctx context.Context) *plugin.Table {
 			//{Name: "networks", Type: proto.ColumnType_JSON, Description: ""},
 			//{Name: "network_v4", Type: proto.ColumnType_JSON, Transform: transform.FromField("Networks.V4[\"0\"]"), Description: ""},
 			//{Name: "network_v4_ip_address", Type: proto.ColumnType_IPADDR, Transform: transform.FromField("Networks.V4[0].IPAddress"), Description: ""},
-			{Name: "next_backup_window_start", Type: proto.ColumnType_STRING, Transform: transform.FromField("NextBackupWindow.Start").Transform(timestampToDateTime), Description: "Start time of the window during which the backup will start."},
-			{Name: "next_backup_window_end", Type: proto.ColumnType_STRING, Transform: transform.FromField("NextBackupWindow.End").Transform(timestampToDateTime), Description: "End time of the window during which the backup will start."},
+			{Name: "next_backup_window_start", Type: proto.ColumnType_STRING, Transform: transform.FromField("NextBackupWindow.Start").Transform(timestampToIsoTimestamp), Description: "Start time of the window during which the backup will start."},
+			{Name: "next_backup_window_end", Type: proto.ColumnType_STRING, Transform: transform.FromField("NextBackupWindow.End").Transform(timestampToIsoTimestamp), Description: "End time of the window during which the backup will start."},
+			{Name: "private_ipv4", Type: proto.ColumnType_IPADDR, Transform: transform.FromMethod("PrivateIPv4"), Description: "Private IPv4 address of the Droplet."},
+			{Name: "public_ipv4", Type: proto.ColumnType_IPADDR, Transform: transform.FromMethod("PublicIPv4"), Description: "Public IPv4 address of the Droplet."},
+			{Name: "public_ipv6", Type: proto.ColumnType_IPADDR, Transform: transform.FromMethod("PublicIPv6"), Description: "Public IPv6 address of the Droplet."},
 			{Name: "region", Type: proto.ColumnType_JSON, Transform: transform.FromField("Region"), Description: "Information about region that the Droplet instance is deployed in."},
 			{Name: "region_slug", Type: proto.ColumnType_STRING, Transform: transform.FromField("Region.Slug"), Description: "The unique slug identifier for the region the Droplet is deployed in."},
 			{Name: "size", Type: proto.ColumnType_JSON, Transform: transform.FromField("Size"), Description: "Information about the size of the Droplet. Note: Due to resize operations, the disk column is more accurate than the disk field in this size data."},
@@ -85,6 +88,7 @@ func listDroplet(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData
 		}
 		page, err := resp.Links.CurrentPage()
 		if err != nil {
+			plugin.Logger(ctx).Error("digitalocean_droplet.listDroplet", "paging_error", err, "opts", opts, "page", page)
 			return nil, err
 		}
 		// set the page we want for the next request

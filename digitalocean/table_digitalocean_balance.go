@@ -7,7 +7,7 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/plugin"
 )
 
-func tableDigitalOceanBalance() *plugin.Table {
+func tableDigitalOceanBalance(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "digitalocean_balance",
 		Description: "Balance information for the current account.",
@@ -26,10 +26,12 @@ func tableDigitalOceanBalance() *plugin.Table {
 func listBalance(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := connect(ctx)
 	if err != nil {
+		plugin.Logger(ctx).Error("digitalocean_balance.listBalance", "connection_error", err)
 		return nil, err
 	}
-	balance, _, err := conn.Balance.Get(ctx)
+	balance, resp, err := conn.Balance.Get(ctx)
 	if err != nil {
+		plugin.Logger(ctx).Error("digitalocean_balance.listBalance", "query_error", err, "resp", resp)
 		return nil, err
 	}
 	d.StreamListItem(ctx, balance)
