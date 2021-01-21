@@ -1,0 +1,3 @@
+connection "digitalocean" {
+  plugin    = "digitalocean"                 
+}
