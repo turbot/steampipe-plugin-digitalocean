@@ -24,19 +24,19 @@ where
   id = 227211874;
 ```
 
-### Droplets by region
+### Droplets by region_slug
 
 ```sql
 select
-  region,
+  region_slug,
   count(id),
   sum(size_gigabytes) as size_gigabytes
 from
   digitalocean_droplet
 group by
-  region
+  region_slug
 order by
-  region;
+  region_slug;
 ```
 
 ### Droplets that do not have backups enabled
@@ -44,7 +44,7 @@ order by
 ```sql
 select
   name,
-  region,
+  region_slug,
   features
 from
   digitalocean_droplet
@@ -52,13 +52,25 @@ where
   not features ? 'backups';
 ```
 
+### Droplet network addresses
+
+```sql
+select
+  name,
+  region_slug,
+  private_ipv4,
+  public_ipv4,
+  public_ipv6
+from
+  digitalocean_droplet;
+```
 
 ### Largest droplets
 
 ```sql
 select
   name,
-  region,
+  region_slug,
   size_gigabytes
 from
   digitalocean_droplet
@@ -73,7 +85,7 @@ limit
 ```sql
 select
   name,
-  region,
+  region_slug,
   created_at
 from
   digitalocean_droplet
@@ -88,7 +100,7 @@ limit
 ```sql
 select
   name,
-  region,
+  region_slug,
   tags
 from
   digitalocean_droplet

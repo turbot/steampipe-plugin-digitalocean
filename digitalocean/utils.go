@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/digitalocean/godo"
 
@@ -51,9 +52,9 @@ func resourceInterfaceDescription(key string) string {
 	return ""
 }
 
-func timestampToDateTime(_ context.Context, d *transform.TransformData) (interface{}, error) {
+func timestampToIsoTimestamp(_ context.Context, d *transform.TransformData) (interface{}, error) {
 	i := d.Value.(*godo.Timestamp)
-	return i.String(), nil
+	return i.Format(time.RFC3339), nil
 }
 
 func labelsToTagsMap(_ context.Context, d *transform.TransformData) (interface{}, error) {
