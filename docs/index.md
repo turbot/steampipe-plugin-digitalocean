@@ -22,6 +22,9 @@ Installing plugin digitalocean...
 $
 ```
 
+## Connection Configuration
+Connection configurations are defined using HCL in one or more Steampipe config files. Steampipe will load ALL configuration files from ~/.steampipe/config that have a .spc extension. A config file may contain multiple connections.
+
 ## Configuration Arguments
 
 Token - To use the API, you'll first generate a personal access token. Personal access tokens function like ordinary OAuth access tokens. You can use them to authenticate to the API by including one in a bearer-type Authorization header with your request.
