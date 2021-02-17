@@ -27,9 +27,7 @@ func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
 	}
 	token, ok := os.LookupEnv("DIGITALOCEAN_TOKEN")
 	if !ok || token == "" {
-		if !ok || token == "" {
-			return nil, errors.New("DIGITALOCEAN_TOKEN environment variable must be set")
-		}
+		return nil, errors.New("DIGITALOCEAN_TOKEN environment variable must be set")
 	}
 	client := godo.NewFromToken(token)
 	client.UserAgent = "Steampipe/0.x (+https://steampipe.io)"
