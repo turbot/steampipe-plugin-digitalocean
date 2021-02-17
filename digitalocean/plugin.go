@@ -9,7 +9,11 @@ import (
 
 func Plugin(ctx context.Context) *plugin.Plugin {
 	p := &plugin.Plugin{
-		Name:             "steampipe-plugin-digitalocean",
+		Name: "steampipe-plugin-digitalocean",
+		ConnectionConfigSchema: &plugin.ConnectionConfigSchema{
+			NewInstance: ConfigInstance,
+			Schema:      ConfigSchema,
+		},
 		DefaultTransform: transform.FromJSONTag().NullIfZero(),
 		TableMap: map[string]*plugin.Table{
 			"digitalocean_account":     tableDigitalOceanAccount(ctx),

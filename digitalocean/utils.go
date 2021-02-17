@@ -8,21 +8,27 @@ import (
 
 	"github.com/digitalocean/godo"
 
+	"github.com/turbot/steampipe-plugin-sdk/plugin"
 	"github.com/turbot/steampipe-plugin-sdk/plugin/transform"
 )
 
-func connect(_ context.Context) (*godo.Client, error) {
+func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
 
 	// There is no CLI order of preference that I could find, so we use the
 	// terraform provider order - https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs#token
 	// 1. DIGITALOCEAN_TOKEN
 	// 2. DIGITALOCEAN_ACCESS_TOKEN
 
+	digitaloceanConfig := GetConfig(d.Connection)
+	if &digitaloceanConfig != nil {
+		if digitaloceanConfig.Token != nil {
+			os.Setenv("DIGITALOCEAN_TOKEN", *digitaloceanConfig.Token)
+		}
+	}
 	token, ok := os.LookupEnv("DIGITALOCEAN_TOKEN")
 	if !ok || token == "" {
-		token, ok = os.LookupEnv("DIGITALOCEAN_ACCESS_TOKEN")
 		if !ok || token == "" {
-			return nil, errors.New("DIGITALOCEAN_TOKEN or DIGITALOCEAN_ACCESS_TOKEN environment variable must be set")
+			return nil, errors.New("DIGITALOCEAN_TOKEN environment variable must be set")
 		}
 	}
 	client := godo.NewFromToken(token)

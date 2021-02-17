@@ -39,7 +39,7 @@ func tableDigitalOceanKey(ctx context.Context) *plugin.Table {
 }
 
 func listKey(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		plugin.Logger(ctx).Error("digitalocean_key.listKey", "connection_error", err)
 		return nil, err
@@ -72,7 +72,7 @@ func listKey(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (i
 }
 
 func getKey(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		plugin.Logger(ctx).Error("digitalocean_key.getKey", "connection_error", err)
 		return nil, err
