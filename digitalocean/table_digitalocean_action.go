@@ -48,7 +48,7 @@ func actionFromKey(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 }
 
 func listAction(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func listAction(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 
 func getAction(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	action := h.Item.(*godo.Action)
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		return nil, err
 	}

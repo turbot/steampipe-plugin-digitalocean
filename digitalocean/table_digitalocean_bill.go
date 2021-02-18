@@ -29,7 +29,7 @@ func tableDigitalOceanBill() *plugin.Table {
 }
 
 func listBill(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		return nil, err
 	}

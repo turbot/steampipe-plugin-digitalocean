@@ -46,7 +46,7 @@ func tableDigitalOceanVolume(ctx context.Context) *plugin.Table {
 }
 
 func listVolume(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		plugin.Logger(ctx).Error("digitalocean_volume.listVolume", "connection_error", err)
 		return nil, err
@@ -81,7 +81,7 @@ func listVolume(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 }
 
 func getVolume(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		plugin.Logger(ctx).Error("digitalocean_volume.getVolume", "connection_error", err)
 		return nil, err

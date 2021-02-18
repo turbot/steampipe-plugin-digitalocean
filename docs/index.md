@@ -22,34 +22,56 @@ Installing plugin digitalocean...
 $
 ```
 
-## Configure API Token
+### Scope
 
-[Create a personal access token to use the DigitalOcean plugin](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/).
-Read scope is required (write is not).
+A DigitalOcean connection is scoped to a single DigitalOcean account, with a single set of credentials.
 
-Set DigitalOcean API token as an environment variable (Mac, Linux):
+## Connection Configuration
 
-```bash
-export DIGITALOCEAN_TOKEN="xoxp-2556146250-EXAMPLE-1646968370949-df954218b5da5b8614c85cc454136b27"
+Connection configurations are defined using HCL in one or more Steampipe config files. Steampipe will load ALL configuration files from `~/.steampipe/config` that have a `.spc` extension. A config file may contain multiple connections.
+
+Installing the latest digitalocean plugin will create a connection file (`~/.steampipe/config/digitalocean.spc`) with a single connection named `digitalocean`. You must modify this connection to include your Personal Access Token for Digital Ocean account.
+
+```hcl
+connection "digitalocean" {
+  plugin  = "digitalocean"
+  token   = "17ImlCYdfZ3WJIrGk96gCpJn1fi1pLwVdrb23kj4"
+}
 ```
 
-Similar to Terraform, API tokens are loaded from the environment in this order of precedence:
+### Configuration Arguments
 
-- `DIGITALOCEAN_TOKEN`
-- `DIGITALOCEAN_ACCESS_TOKEN`
+The DigitalOcean plugin allows you set static credentials with the `token` argument. Personal access tokens function like ordinary OAuth access tokens -- You can use them to authenticate to the API by including it in a bearer-type Authorization header with your request. 
 
-Steampipe does not yet automatically load `doctl` configuration files.
+To use the plugin, you'll first need to [create personal access token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/).  Read scope is required (write is not).
 
-## Your first query
+If the `token` argument is not specified for a connection, the project will be determined in the following order:
+  - The DIGITALOCEAN_TOKEN environment variable, if set; otherwise
+  - The DIGITALOCEAN_ACCESS_TOKEN environment variable, if set (this is deprecated).
 
-```bash
-$ steampipe query
-Welcome to Steampipe v0.0.14
-Type ".inspect" for more information.
-> select * from digitalocean_account;
-+--------------------------+---------------+----------------+-------------------+--------+----------------+--------------------------------------+--------------+
-|          email           | droplet_limit | email_verified | floating_ip_limit | status | status_message |                 uuid                 | volume_limit |
-+--------------------------+---------------+----------------+-------------------+--------+----------------+--------------------------------------+--------------+
-| dwight@dundermifflin.com |            25 | true           |                 3 | active |                | 1593cd23-4203-4bee-b87b-37189e1dcf96 |          100 |
-+--------------------------+---------------+----------------+-------------------+--------+----------------+--------------------------------------+--------------+
-```
+#### Example configurations
+
+- A connection to a specific account, using token.
+
+  ```hcl
+  connection "digitalocean_my_account" {
+    plugin = "digitalocean"
+    token  = "1646968370949-df954218b5da5b8614c85cc454136b27"
+  }
+  ```
+
+- A common configuration is to have multiple connections to different DigitalOcean accounts.
+  ```hcl
+  connection "account_aaa" {
+    plugin    = "digitalocean"
+    token     = "1646968370949-df954218b5da5b8614c85cc4541abcde"
+  }
+  connection "account_bbb" {
+    plugin    = "digitalocean"
+    token     = "1646968370949-df954218b5da5b8614c85cc4541fghij"
+  }
+  connection "account_ccc" {
+    plugin    = "digitalocean"
+    token     = "1646968370949-df954218b5da5b8614c85cc4541klmno"
+  }
+  ```

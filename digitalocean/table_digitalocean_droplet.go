@@ -61,7 +61,7 @@ func tableDigitalOceanDroplet(ctx context.Context) *plugin.Table {
 }
 
 func listDroplet(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		plugin.Logger(ctx).Error("digitalocean_droplet.listDroplet", "connection_error", err)
 		return nil, err
@@ -94,7 +94,7 @@ func listDroplet(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData
 }
 
 func getDroplet(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		plugin.Logger(ctx).Error("digitalocean_droplet.getDroplet", "connection_error", err)
 		return nil, err

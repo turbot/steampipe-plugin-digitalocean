@@ -66,7 +66,7 @@ func tableDigitalOceanDatabase(ctx context.Context) *plugin.Table {
 }
 
 func listDatabase(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		plugin.Logger(ctx).Error("digitalocean_database.listDatabase", "connection_error", err)
 		return nil, err
@@ -99,7 +99,7 @@ func listDatabase(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDat
 }
 
 func getDatabase(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	conn, err := connect(ctx)
+	conn, err := connect(ctx, d)
 	if err != nil {
 		plugin.Logger(ctx).Error("digitalocean_database.getDatabase", "connection_error", err)
 		return nil, err
