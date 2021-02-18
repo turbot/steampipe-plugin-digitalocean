@@ -1,0 +1,5 @@
+## v0.2.0 [2021-02-18]
+
+_What's new?_
+
+- Added support for [connection configuration](https://github.com/turbot/steampipe-plugin-digitalocean/blob/main/docs/index.md#connection-configuration). You may specify digitalocean `token` for each connection in a configuration file. You can have multiple digitalocean connections, each configured for a different account.
