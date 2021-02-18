@@ -30,7 +30,7 @@ func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
 	if !ok || token == "" {
 		token, ok = os.LookupEnv("DIGITALOCEAN_ACCESS_TOKEN")
 		if !ok || token == "" {
-			return nil, errors.New("'token' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe.")
+			return nil, errors.New("'token' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
 		}
 	}
 
