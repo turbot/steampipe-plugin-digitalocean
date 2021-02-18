@@ -30,7 +30,7 @@ A DigitalOcean connection is scoped to a single DigitalOcean account, with a sin
 
 Connection configurations are defined using HCL in one or more Steampipe config files. Steampipe will load ALL configuration files from `~/.steampipe/config` that have a `.spc` extension. A config file may contain multiple connections.
 
-Installing the latest digitalocean plugin will create a connection file (~/.steampipe/config/digitalocean.spc) with a single connection named digitalocean. You must modify this connection to include your Persional Access Token for Digital Ocean account.
+Installing the latest digitalocean plugin will create a connection file (`~/.steampipe/config/digitalocean.spc`) with a single connection named `digitalocean`. You must modify this connection to include your Personal Access Token for Digital Ocean account.
 
 ```hcl
 connection "digitalocean" {
@@ -41,22 +41,15 @@ connection "digitalocean" {
 
 ### Configuration Arguments
 
-The DigitalOcean plugin allows you set credentials static credentials with the following arguments:
+The DigitalOcean plugin allows you set static credentials with the `token` argument. Personal access tokens function like ordinary OAuth access tokens -- You can use them to authenticate to the API by including it in a bearer-type Authorization header with your request. 
 
-- `token` - To use the API, you'll first generate a personal access token. Personal access tokens function like ordinary OAuth access tokens. You can use them to authenticate to the API by including one in a bearer-type Authorization header with your request. [Create personal access token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/) for Digital ocean plugin. Read scope is required (write is not).
-  If the `token` argument is not specified for a connection, the project will be determined in the following order:
+To use the plugin, you'll first need to [create personal access token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/).  Read scope is required (write is not).
+
+If the `token` argument is not specified for a connection, the project will be determined in the following order:
   - The DIGITALOCEAN_TOKEN environment variable, if set; otherwise
-  - The DIGITALOCEAN_ACCESS_TOKEN environment variable, if set (this is deprecated); otherwise
+  - The DIGITALOCEAN_ACCESS_TOKEN environment variable, if set (this is deprecated).
 
 #### Example configurations
-
-- The default connection.
-
-  ```hcl
-  connection "digitalocean" {
-    plugin = "digitalocean"
-  }
-  ```
 
 - A connection to a specific account, using token.
 
