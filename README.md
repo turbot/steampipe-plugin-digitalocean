@@ -21,7 +21,7 @@ select
   engine,
   version
 from
-  digitalocean_database
+  digitalocean_database;
 ```
 
 Learn about [Steampipe](https://steampipe.io/).
