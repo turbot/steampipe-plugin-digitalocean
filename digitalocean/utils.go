@@ -25,10 +25,15 @@ func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
 			os.Setenv("DIGITALOCEAN_TOKEN", *digitaloceanConfig.Token)
 		}
 	}
+
 	token, ok := os.LookupEnv("DIGITALOCEAN_TOKEN")
 	if !ok || token == "" {
-		return nil, errors.New("DIGITALOCEAN_TOKEN environment variable must be set")
+		token, ok = os.LookupEnv("DIGITALOCEAN_ACCESS_TOKEN")
+		if !ok || token == "" {
+			return nil, errors.New("'token' must be set in the connection configuration (~/.steampipe/config/digitalocean.spc)")
+		}
 	}
+
 	client := godo.NewFromToken(token)
 	client.UserAgent = "Steampipe/0.x (+https://steampipe.io)"
 	return client, nil
