@@ -30,7 +30,7 @@ A DigitalOcean connection is scoped to a single DigitalOcean account, with a sin
 
 Connection configurations are defined using HCL in one or more Steampipe config files. Steampipe will load ALL configuration files from `~/.steampipe/config` that have a `.spc` extension. A config file may contain multiple connections.
 
-Installing the latest digitalocean plugin will create a connection file (`~/.steampipe/config/digitalocean.spc`) with a single connection named `digitalocean`. You must modify this connection to include your Personal Access Token for Digital Ocean account.
+Installing the latest digitalocean plugin will create a connection file (`~/.steampipe/config/digitalocean.spc`) with a single connection named `digitalocean`. You must modify this connection to include your Personal Access Token for DigitalOcean account.
 
 ```hcl
 connection "digitalocean" {

@@ -13,7 +13,7 @@
 
 ## Query DigitalOcean with SQL
 
-Use SQL to query droplets, vpcs, users and more more from DigitalOcean. For example:
+Use SQL to query droplets, vpcs, users and more from DigitalOcean. For example:
 
 ```sql
 select
