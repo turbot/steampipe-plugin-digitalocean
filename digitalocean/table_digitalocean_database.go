@@ -36,7 +36,7 @@ func tableDigitalOceanDatabase(ctx context.Context) *plugin.Table {
 			{Name: "connection_ssl", Type: proto.ColumnType_BOOL, Transform: transform.FromField("Connection.SSL"), Description: "A boolean value indicating if the connection should be made over SSL."},
 			{Name: "connection_uri", Type: proto.ColumnType_STRING, Transform: transform.FromField("Connection.URI"), Description: "A connection string in the format accepted by the psql command. This is provided as a convenience and should be able to be constructed by the other attributes."},
 			{Name: "connection_user", Type: proto.ColumnType_STRING, Transform: transform.FromField("Connection.User"), Description: "The default user for the database."},
-			{Name: "created_at", Type: proto.ColumnType_DATETIME, Description: "Time when the database was created."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the database was created."},
 			{Name: "db_names", Type: proto.ColumnType_JSON, Description: "An array of strings containing the names of databases created in the database cluster."},
 			{Name: "maintenance_window_day", Type: proto.ColumnType_STRING, Transform: transform.FromField("MaintenanceWindow.Day"), Description: "The day of the week on which to apply maintenance updates (e.g. \"tuesday\")."},
 			{Name: "maintenance_window_description", Type: proto.ColumnType_JSON, Transform: transform.FromField("MaintenanceWindow.Description"), Description: "A list of strings, each containing information about a pending maintenance update."},

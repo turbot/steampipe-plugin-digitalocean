@@ -28,7 +28,7 @@ func tableDigitalOceanDroplet(ctx context.Context) *plugin.Table {
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The human-readable name set for the Droplet instance."},
 			// Other columns
 			{Name: "backup_ids", Type: proto.ColumnType_JSON, Description: "An array of backup IDs of any backups that have been taken of the Droplet instance."},
-			{Name: "created_at", Type: proto.ColumnType_DATETIME, Description: "Time when the Droplet was created."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the Droplet was created."},
 			{Name: "disk", Type: proto.ColumnType_INT, Description: "The size of the Droplet's disk in gigabytes."},
 			{Name: "features", Type: proto.ColumnType_JSON, Description: "An array of features enabled on this Droplet."},
 			{Name: "image", Type: proto.ColumnType_JSON, Transform: transform.FromField("Image"), Description: "Information about the base image used to create the Droplet instance."},
@@ -36,9 +36,6 @@ func tableDigitalOceanDroplet(ctx context.Context) *plugin.Table {
 			{Name: "locked", Type: proto.ColumnType_BOOL, Description: "A boolean value indicating whether the Droplet has been locked, preventing actions by users."},
 			{Name: "memory", Type: proto.ColumnType_INT, Description: "Memory of the Droplet in megabytes."},
 			{Name: "networks", Type: proto.ColumnType_JSON, Description: "The details of the network that are configured for the Droplet instance. This is an object that contains keys for IPv4 and IPv6. The value of each of these is an array that contains objects describing an individual IP resource allocated to the Droplet. These will define attributes like the IP address, netmask, and gateway of the specific network depending on the type of network it is."},
-			//{Name: "networks", Type: proto.ColumnType_JSON, Description: ""},
-			//{Name: "network_v4", Type: proto.ColumnType_JSON, Transform: transform.FromField("Networks.V4[\"0\"]"), Description: ""},
-			//{Name: "network_v4_ip_address", Type: proto.ColumnType_IPADDR, Transform: transform.FromField("Networks.V4[0].IPAddress"), Description: ""},
 			{Name: "next_backup_window_start", Type: proto.ColumnType_STRING, Transform: transform.FromField("NextBackupWindow.Start").Transform(timestampToIsoTimestamp), Description: "Start time of the window during which the backup will start."},
 			{Name: "next_backup_window_end", Type: proto.ColumnType_STRING, Transform: transform.FromField("NextBackupWindow.End").Transform(timestampToIsoTimestamp), Description: "End time of the window during which the backup will start."},
 			{Name: "private_ipv4", Type: proto.ColumnType_IPADDR, Transform: transform.FromMethod("PrivateIPv4"), Description: "Private IPv4 address of the Droplet."},

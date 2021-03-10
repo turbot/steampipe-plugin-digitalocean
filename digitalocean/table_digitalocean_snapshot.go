@@ -27,7 +27,7 @@ func tableDigitalOceanSnapshot(ctx context.Context) *plugin.Table {
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "The unique identifier for the snapshot."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "A human-readable name for the snapshot."},
 			// Other columns
-			{Name: "created_at", Type: proto.ColumnType_DATETIME, Description: "Time when the block storage volume was created."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the block storage volume was created."},
 			{Name: "min_disk_size", Type: proto.ColumnType_INT, Description: "The minimum size in GB required for a volume or Droplet to use this snapshot."},
 			{Name: "regions", Type: proto.ColumnType_JSON, Description: "An array of regions the snapshot is available in. The region slug is used."},
 			{Name: "resource_id", Type: proto.ColumnType_STRING, Description: "A unique identifier for the resource that the action is associated with."},

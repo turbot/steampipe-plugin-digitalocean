@@ -28,7 +28,7 @@ func tableDigitalOceanImage(ctx context.Context) *plugin.Table {
 			{Name: "id", Type: proto.ColumnType_INT, Description: "A unique number that can be used to identify and reference a specific image."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The display name that has been given to an image. This is what is shown in the control panel and is generally a descriptive title for the image in question."},
 			// Other columns
-			{Name: "created_at", Type: proto.ColumnType_DATETIME, Description: "Time when the image was created."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the image was created."},
 			{Name: "description", Type: proto.ColumnType_STRING, Description: "An optional free-form text field to describe an image."},
 			{Name: "distribution", Type: proto.ColumnType_STRING, Description: "This attribute describes the base distribution used for this image. For custom images, this is user defined."},
 			{Name: "error_message", Type: proto.ColumnType_STRING, Description: "A string containing information about errors that may occur when importing a custom image."},

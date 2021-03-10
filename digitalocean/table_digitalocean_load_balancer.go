@@ -28,7 +28,7 @@ func tableDigitalOceanLoadBalancer(ctx context.Context) *plugin.Table {
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "A human-readable name for a load balancer instance."},
 			// Other columns
 			{Name: "algorithm", Type: proto.ColumnType_STRING, Description: "The load balancing algorithm used to determine which backend Droplet will be selected by a client. It must be either \"round_robin\" or \"least_connections\"."},
-			{Name: "created_at", Type: proto.ColumnType_DATETIME, Description: "Time when the load balancer was created."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the load balancer was created."},
 			{Name: "droplet_ids", Type: proto.ColumnType_JSON, Description: "An array containing the IDs of the Droplets assigned to the load balancer."},
 			{Name: "enable_backend_keepalive", Type: proto.ColumnType_BOOL, Description: "A boolean value indicating whether HTTP keepalive connections are maintained to target Droplets."},
 			{Name: "enable_proxy_protocol", Type: proto.ColumnType_BOOL, Description: "A boolean value indicating whether PROXY Protocol is in use."},

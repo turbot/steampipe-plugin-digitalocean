@@ -27,7 +27,7 @@ func tableDigitalOceanVolume(ctx context.Context) *plugin.Table {
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "The unique identifier for the block storage volume."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "A human-readable name for the block storage volume. Must be lowercase and be composed only of numbers, letters and \"-\", up to a limit of 64 characters. The name must begin with a letter."},
 			// Other columns
-			{Name: "created_at", Type: proto.ColumnType_DATETIME, Description: "Time when the block storage volume was created."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the block storage volume was created."},
 			{Name: "description", Type: proto.ColumnType_STRING, Description: "An optional free-form text field to describe a block storage volume."},
 			{Name: "droplet_ids", Type: proto.ColumnType_JSON, Description: "An array containing the IDs of the Droplets the volume is attached to. Note that at this time, a volume can only be attached to a single Droplet."},
 			{Name: "filesystem_label", Type: proto.ColumnType_STRING, Description: "The label currently applied to the filesystem."},

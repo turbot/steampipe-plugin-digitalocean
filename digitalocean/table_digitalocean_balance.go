@@ -16,7 +16,7 @@ func tableDigitalOceanBalance(ctx context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			{Name: "account_balance", Type: proto.ColumnType_DOUBLE, Description: "Current balance of the customer's most recent billing activity. Does not reflect month_to_date_usage."},
-			{Name: "generated_at", Type: proto.ColumnType_DATETIME, Description: "The time at which balances were most recently generated."},
+			{Name: "generated_at", Type: proto.ColumnType_TIMESTAMP, Description: "The time at which balances were most recently generated."},
 			{Name: "month_to_date_balance", Type: proto.ColumnType_DOUBLE, Description: "Balance as of the generated_at time. This value includes the account_balance and month_to_date_usage."},
 			{Name: "month_to_date_usage", Type: proto.ColumnType_DOUBLE, Description: "Amount used in the current billing period as of the generated_at time."},
 		},

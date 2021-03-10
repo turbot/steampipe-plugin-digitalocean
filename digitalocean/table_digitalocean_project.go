@@ -27,14 +27,14 @@ func tableDigitalOceanProject(ctx context.Context) *plugin.Table {
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "The unique universal identifier of this project."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The globally unique human-readable name for the project."},
 			// Other columns
-			{Name: "created_at", Type: proto.ColumnType_DATETIME, Description: "Time when the project was created."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the project was created."},
 			{Name: "description", Type: proto.ColumnType_STRING, Description: "The description of the project."},
 			{Name: "environment", Type: proto.ColumnType_STRING, Description: "The environment of the project's resources."},
 			{Name: "is_default", Type: proto.ColumnType_BOOL, Description: "If true, all resources will be added to this project if no project is specified."},
 			{Name: "owner_id", Type: proto.ColumnType_INT, Description: "The integer id of the project owner."},
 			{Name: "owner_uuid", Type: proto.ColumnType_STRING, Description: "The unique universal identifier of the project owner."},
 			{Name: "purpose", Type: proto.ColumnType_STRING, Description: "The purpose of the project."},
-			{Name: "updated_at", Type: proto.ColumnType_DATETIME, Description: "Time when the project was updated."},
+			{Name: "updated_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the project was updated."},
 			// Resource interface
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromValue().Transform(projectToURN).Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromConstant(map[string]bool{}), Description: resourceInterfaceDescription("tags")},

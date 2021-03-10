@@ -27,7 +27,7 @@ func tableDigitalOceanVPC(ctx context.Context) *plugin.Table {
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "A unique ID that can be used to identify and reference the VPC."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The name of the VPC. Must be unique and may only contain alphanumeric characters, dashes, and periods."},
 			// Other columns
-			{Name: "created_at", Type: proto.ColumnType_DATETIME, Description: "A time value given in ISO8601 combined date and time format."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "A time value given in ISO8601 combined date and time format."},
 			{Name: "description", Type: proto.ColumnType_STRING, Description: "A free-form text field for describing the VPC's purpose. It may be a maximum of 255 characters."},
 			{Name: "ip_range", Type: proto.ColumnType_CIDR, Description: "The range of IP addresses in the VPC in CIDR notation."},
 			// Rename to avoid conflict with default keyword in postgres
