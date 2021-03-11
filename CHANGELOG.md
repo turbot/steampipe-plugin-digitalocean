@@ -1,3 +1,18 @@
+## v0.3.0 [2021-03-11]
+
+_What's new?_
+
+- New tables added
+  - [digitalocean_action](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_action)
+  - [digitalocean_balance](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_balance)
+  - [digitalocean_bill](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_bill)
+
+_Enhancements_
+  - Added `private_ipv4`, `public_ipv4`, `public_ipv6` columns to `digitalocean_droplet` table
+  - Renamed column `size` to `size_slug` in `digitalocean_load_balancer` table
+  - Renamed column `region` to `region_slug` in `digitalocean_load_balancer` table
+  - Updated columns using deprecated `ColumnType_DATETIME` type to instead use `ColumnType_TIMESTAMP` type
+
 ## v0.2.1 [2021-02-25]
 
 _Bug fixes_
