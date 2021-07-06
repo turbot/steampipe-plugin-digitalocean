@@ -12,6 +12,8 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/plugin/transform"
 )
 
+//// TABLE DEFINITION
+
 func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "digitalocean_kubernetes_cluster",
@@ -24,7 +26,6 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 			Hydrate:    getKubernetesCluster,
 		},
 		Columns: []*plugin.Column{
-			// Top columns
 			{
 				Name:        "id",
 				Type:        proto.ColumnType_STRING,
@@ -35,51 +36,45 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Description: "The globally unique human-readable name for the cluster.",
 			},
+			{
+				Name:        "cluster_subnet",
+				Type:        proto.ColumnType_STRING,
+				Description: "The range of IP addresses in the overlay network of the Kubernetes cluster.",
+			},
+			{
+				Name:        "endpoint",
+				Type:        proto.ColumnType_STRING,
+				Description: "The base URL of the API server on the Kubernetes master node.",
+			},
+			{
+				Name:        "ipv4",
+				Type:        proto.ColumnType_STRING,
+				Description: "The public IPv4 address of the Kubernetes master node.",
+				Transform:   transform.FromField("IPv4"),
+			},
+			{
+				Name:        "region_slug",
+				Type:        proto.ColumnType_STRING,
+				Description: "The slug identifier for the region where the Kubernetes cluster will be created.",
+			},
+			{
+				Name:        "service_subnet",
+				Type:        proto.ColumnType_STRING,
+				Description: "The range of assignable IP addresses for services running in the Kubernetes cluster.",
+			},
+			{
+				Name:        "version_slug",
+				Type:        proto.ColumnType_STRING,
+				Description: "The slug identifier for the version of Kubernetes used for the cluster.",
+			},
+			{
+				Name:        "vpc_uuid",
+				Type:        proto.ColumnType_STRING,
+				Description: "The ID of the VPC where the Kubernetes cluster will be located.",
+				Transform:   transform.FromField("VPCUUID"),
+			},
 
-			// Other columns
-			{
-				Name:        "ClusterSubnet",
-				Type:        proto.ColumnType_BOOL,
-				Description: "If true, all resources will be added to this project if no project is specified.",
-			},
-			{
-				Name:        "Endpoint",
-				Type:        proto.ColumnType_STRING,
-				Description: "The purpose of the project.",
-			},
-			{
-				Name:        "IPv4",
-				Type:        proto.ColumnType_STRING,
-				Description: "The unique universal identifier of the project owner.",
-			},
-			{
-				Name:        "RegionSlug",
-				Type:        proto.ColumnType_STRING,
-				Description: "The description of the project.",
-			},
-			{
-				Name:        "ServiceSubnet",
-				Type:        proto.ColumnType_INT,
-				Description: "The integer id of the project owner.",
-			},
-			{
-				Name:        "VersionSlug",
-				Type:        proto.ColumnType_STRING,
-				Description: "The environment of the project's resources.",
-			},
-			{
-				Name:        "VPCUUID",
-				Type:        proto.ColumnType_STRING,
-				Description: "Time when the project was updated.",
-			},
-
-			// Resource interface
-			{
-				Name:        "akas",
-				Type:        proto.ColumnType_JSON,
-				Description: resourceInterfaceDescription("akas"),
-				Transform:   transform.FromValue().Transform(clusterToURN).Transform(ensureStringArray),
-			},
+			// Steampipe standard columns
 			{
 				Name:        "tags",
 				Type:        proto.ColumnType_JSON,
@@ -92,9 +87,17 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 				Description: resourceInterfaceDescription("title"),
 				Transform:   transform.FromField("Name"),
 			},
+			{
+				Name:        "akas",
+				Type:        proto.ColumnType_JSON,
+				Description: resourceInterfaceDescription("akas"),
+				Transform:   transform.FromValue().Transform(clusterToURN).Transform(ensureStringArray),
+			},
 		},
 	}
 }
+
+//// LIST FUNCTION
 
 func listKubernetesClusters(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := connect(ctx, d)
@@ -129,6 +132,8 @@ func listKubernetesClusters(ctx context.Context, d *plugin.QueryData, _ *plugin.
 	return nil, nil
 }
 
+//// HYDRATE FUNCTIONS
+
 func getKubernetesCluster(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	conn, err := connect(ctx, d)
 	if err != nil {
@@ -150,7 +155,9 @@ func getKubernetesCluster(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 	return result, nil
 }
 
+//// TRANSFORM FUNCTION
+
 func clusterToURN(_ context.Context, d *transform.TransformData) (interface{}, error) {
 	i := *d.Value.(*godo.KubernetesCluster)
-	return fmt.Sprintf("do:kubernetes:%s", i.ID), nil
+	return fmt.Sprintf("do:kubernetesCluster:%s", i.ID), nil
 }
