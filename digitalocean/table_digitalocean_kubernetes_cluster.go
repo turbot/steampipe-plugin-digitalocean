@@ -37,6 +37,22 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 				Description: "The globally unique human-readable name for the cluster.",
 			},
 			{
+				Name:        "status",
+				Type:        proto.ColumnType_STRING,
+				Description: "A string indicating the current status of the cluster. Potential values include running, provisioning, and errored.",
+				Transform:   transform.FromField("Status.State"),
+			},
+			{
+				Name:        "created_at",
+				Type:        proto.ColumnType_TIMESTAMP,
+				Description: "The date and time when the Kubernetes cluster was created.",
+			},
+			{
+				Name:        "auto_upgrade",
+				Type:        proto.ColumnType_BOOL,
+				Description: "A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.",
+			},
+			{
 				Name:        "cluster_subnet",
 				Type:        proto.ColumnType_STRING,
 				Description: "The range of IP addresses in the overlay network of the Kubernetes cluster.",
@@ -56,6 +72,12 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 				Name:        "region_slug",
 				Type:        proto.ColumnType_STRING,
 				Description: "The slug identifier for the region where the Kubernetes cluster will be created.",
+				Transform:   transform.FromField("RegionSlug"),
+			},
+			{
+				Name:        "registry_enabled",
+				Type:        proto.ColumnType_BOOL,
+				Description: "",
 			},
 			{
 				Name:        "service_subnet",
@@ -63,15 +85,36 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 				Description: "The range of assignable IP addresses for services running in the Kubernetes cluster.",
 			},
 			{
+				Name:        "surge_upgrade",
+				Type:        proto.ColumnType_BOOL,
+				Description: "Enable/disable surge upgrades for a cluster.",
+			},
+			{
+				Name:        "updated_at",
+				Type:        proto.ColumnType_TIMESTAMP,
+				Description: "The date and time when the Kubernetes cluster was last updated.",
+			},
+			{
 				Name:        "version_slug",
 				Type:        proto.ColumnType_STRING,
 				Description: "The slug identifier for the version of Kubernetes used for the cluster.",
+				Transform:   transform.FromField("VersionSlug"),
 			},
 			{
 				Name:        "vpc_uuid",
 				Type:        proto.ColumnType_STRING,
 				Description: "The ID of the VPC where the Kubernetes cluster will be located.",
 				Transform:   transform.FromField("VPCUUID"),
+			},
+			{
+				Name:        "maintenance_policy",
+				Type:        proto.ColumnType_JSON,
+				Description: "A block representing the cluster's maintenance window.",
+			},
+			{
+				Name:        "node_pools",
+				Type:        proto.ColumnType_JSON,
+				Description: "The cluster's default node pool.",
 			},
 
 			// Steampipe standard columns
@@ -142,6 +185,11 @@ func getKubernetesCluster(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 	}
 
 	id := d.KeyColumnQuals["id"].GetStringValue()
+
+	// Handle empty id
+	if id == "" {
+		return nil, nil
+	}
 
 	result, resp, err := conn.Kubernetes.Get(ctx, id)
 	if err != nil {

@@ -15,3 +15,31 @@ select
 from
   digitalocean_kubernetes_cluster;
 ```
+
+### List clusters which are not running
+
+```sql
+select
+  id,
+  name,
+  cluster_subnet,
+  ipv4
+from
+  digitalocean_kubernetes_cluster
+where
+  status <> 'running';
+```
+
+### List clusters where auto upgrade not enabled
+
+```sql
+select
+  id,
+  name,
+  cluster_subnet,
+  ipv4
+from
+  digitalocean_kubernetes_cluster
+where
+  not auto_upgrade;
+```
