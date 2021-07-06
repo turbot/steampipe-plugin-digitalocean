@@ -23,7 +23,6 @@ func tableDigitalOceanFirewall(ctx context.Context) *plugin.Table {
 			Hydrate:    getFirewall,
 		},
 		Columns: []*plugin.Column{
-			// Top columns
 			{
 				Name:        "id",
 				Type:        proto.ColumnType_STRING,
@@ -34,8 +33,6 @@ func tableDigitalOceanFirewall(ctx context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Description: "The name of the Firewall.",
 			},
-
-			// Other columns
 			{
 				Name:        "created_at",
 				Type:        proto.ColumnType_TIMESTAMP,
@@ -44,7 +41,7 @@ func tableDigitalOceanFirewall(ctx context.Context) *plugin.Table {
 			{
 				Name:        "status",
 				Type:        proto.ColumnType_STRING,
-				Description: "A status string indicating the current state of the Firewall. ",
+				Description: "A status string indicating the current state of the Firewall.",
 			},
 			{
 				Name:        "droplet_ids",
@@ -68,13 +65,7 @@ func tableDigitalOceanFirewall(ctx context.Context) *plugin.Table {
 				Description: "An list of object containing the fields, `droplet_id`, `removing`, and `status`. It is provided to detail exactly which Droplets are having their security policies updated. When empty, all changes have been successfully applied.",
 			},
 
-			// Resource interface
-			{
-				Name:        "akas",
-				Type:        proto.ColumnType_JSON,
-				Description: resourceInterfaceDescription("akas"),
-				Transform:   transform.FromValue().Transform(firewallToURN).Transform(ensureStringArray),
-			},
+			// Steampipe standard columns
 			{
 				Name:        "tags",
 				Type:        proto.ColumnType_JSON,
@@ -87,9 +78,17 @@ func tableDigitalOceanFirewall(ctx context.Context) *plugin.Table {
 				Description: resourceInterfaceDescription("title"),
 				Transform:   transform.FromField("Name"),
 			},
+			{
+				Name:        "akas",
+				Type:        proto.ColumnType_JSON,
+				Description: resourceInterfaceDescription("akas"),
+				Transform:   transform.FromValue().Transform(firewallToURN).Transform(ensureStringArray),
+			},
 		},
 	}
 }
+
+//// LIST FUNCTION
 
 func listFirewalls(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := connect(ctx, d)
@@ -124,6 +123,8 @@ func listFirewalls(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 	return nil, nil
 }
 
+//// HYDRATE FUNCTIONS
+
 func getFirewall(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	conn, err := connect(ctx, d)
 	if err != nil {
@@ -144,6 +145,8 @@ func getFirewall(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 	}
 	return firewall, nil
 }
+
+//// TRANSFORM FUNCTIONS
 
 func firewallToURN(_ context.Context, d *transform.TransformData) (interface{}, error) {
 	var firewall godo.Firewall
