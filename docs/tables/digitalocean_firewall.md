@@ -16,6 +16,21 @@ from
   digitalocean_firewall;
 ```
 
+## List firewalls whose inbound access is not restricted
+
+```sql
+select
+  id,
+  name,
+  created_at,
+  status
+from
+  digitalocean_firewall,
+  jsonb_array_elements(inbound_rules) as i
+where
+  i -> 'sources' -> 'addresses' = '["0.0.0.0/0","::/0"]';
+```
+
 ### List failed firewalls
 
 ```sql
