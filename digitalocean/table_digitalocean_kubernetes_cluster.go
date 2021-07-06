@@ -37,6 +37,12 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 				Description: "The globally unique human-readable name for the cluster.",
 			},
 			{
+				Name:        "urn",
+				Type:        proto.ColumnType_STRING,
+				Description: "The uniform resource name (URN) for the cluster.",
+				Transform:   transform.FromValue().Transform(clusterToURN),
+			},
+			{
 				Name:        "status",
 				Type:        proto.ColumnType_STRING,
 				Description: "A string indicating the current status of the cluster. Potential values include running, provisioning, and errored.",
@@ -77,7 +83,7 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 			{
 				Name:        "registry_enabled",
 				Type:        proto.ColumnType_BOOL,
-				Description: "",
+				Description: "A boolean value indicating whether cluster integrated with container registry.",
 			},
 			{
 				Name:        "service_subnet",
