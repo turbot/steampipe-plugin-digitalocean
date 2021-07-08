@@ -33,6 +33,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"digitalocean_tag":           tableDigitalOceanTag(ctx),
 			"digitalocean_volume":        tableDigitalOceanVolume(ctx),
 			"digitalocean_vpc":           tableDigitalOceanVPC(ctx),
+			"digitalocean_domain":        tableDigitalOceanDomain(ctx),
 		},
 	}
 	return p
