@@ -203,6 +203,10 @@ func getKubernetesCluster(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 			plugin.Logger(ctx).Warn("getKubernetesCluster", "not_found_error", err, "resp", resp)
 			return nil, nil
 		}
+		if strings.Contains(err.Error(), ": 400") {
+			plugin.Logger(ctx).Warn("getKubernetesCluster", "invalid_id", err, "resp", resp)
+			return nil, nil
+		}
 		plugin.Logger(ctx).Error("getKubernetesCluster", "query_error", err, "resp", resp)
 		return nil, err
 	}
