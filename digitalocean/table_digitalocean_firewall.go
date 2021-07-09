@@ -134,10 +134,19 @@ func getFirewall(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 
 	id := d.KeyColumnQuals["id"].GetStringValue()
 
+	// Handle empty id
+	if id == "" {
+		return nil, nil
+	}
+
 	firewall, resp, err := conn.Firewalls.Get(ctx, id)
 	if err != nil {
 		if strings.Contains(err.Error(), ": 404") {
 			plugin.Logger(ctx).Warn("getFirewall", "not_found_error", err, "resp", resp)
+			return nil, nil
+		}
+		if strings.Contains(err.Error(), ": 400") {
+			plugin.Logger(ctx).Warn("getFirewall", "invalid_id", err, "resp", resp)
 			return nil, nil
 		}
 		plugin.Logger(ctx).Error("getFirewall", "query_error", err, "resp", resp)
