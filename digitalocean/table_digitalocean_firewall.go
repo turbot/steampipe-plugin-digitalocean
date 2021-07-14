@@ -44,6 +44,12 @@ func tableDigitalOceanFirewall(ctx context.Context) *plugin.Table {
 				Description: "A status string indicating the current state of the Firewall.",
 			},
 			{
+				Name:        "urn",
+				Type:        proto.ColumnType_STRING,
+				Description: "The uniform resource name (URN) for the Firewall.",
+				Transform:   transform.FromValue().Transform(firewallToURN),
+			},
+			{
 				Name:        "droplet_ids",
 				Type:        proto.ColumnType_JSON,
 				Description: "The list of the IDs of the Droplets assigned to the Firewall.",
