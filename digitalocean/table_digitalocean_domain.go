@@ -31,12 +31,6 @@ func tableDigitalOceanDomain(ctx context.Context) *plugin.Table {
 				Description: "The globally unique human-readable name for the domain.",
 			},
 			{
-				Name:        "urn",
-				Type:        proto.ColumnType_STRING,
-				Description: "The uniform resource name (URN) for the domain.",
-				Transform:   transform.FromValue().Transform(domainToURN),
-			},
-			{
 				Name:        "ttl",
 				Type:        proto.ColumnType_INT,
 				Description: "TTL value of domain.",
@@ -45,6 +39,12 @@ func tableDigitalOceanDomain(ctx context.Context) *plugin.Table {
 				Name:        "zone_file",
 				Type:        proto.ColumnType_STRING,
 				Description: "It contains the DNS record details.",
+			},
+			{
+				Name:        "urn",
+				Type:        proto.ColumnType_STRING,
+				Description: "The uniform resource name (URN) for the domain.",
+				Transform:   transform.FromValue().Transform(domainToURN),
 			},
 
 			// Steampipe standard columns
