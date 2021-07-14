@@ -37,12 +37,6 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 				Description: "The globally unique human-readable name for the cluster.",
 			},
 			{
-				Name:        "urn",
-				Type:        proto.ColumnType_STRING,
-				Description: "The uniform resource name (URN) for the cluster.",
-				Transform:   transform.FromValue().Transform(clusterToURN),
-			},
-			{
 				Name:        "status",
 				Type:        proto.ColumnType_STRING,
 				Description: "A string indicating the current status of the cluster. Potential values include running, provisioning, and errored.",
@@ -99,6 +93,12 @@ func tableDigitalOceanKubernetesCluster(ctx context.Context) *plugin.Table {
 				Name:        "updated_at",
 				Type:        proto.ColumnType_TIMESTAMP,
 				Description: "The date and time when the Kubernetes cluster was last updated.",
+			},
+			{
+				Name:        "urn",
+				Type:        proto.ColumnType_STRING,
+				Description: "The uniform resource name (URN) for the cluster.",
+				Transform:   transform.FromValue().Transform(clusterToURN),
 			},
 			{
 				Name:        "version_slug",
