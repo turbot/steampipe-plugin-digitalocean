@@ -44,12 +44,6 @@ func tableDigitalOceanApp(ctx context.Context) *plugin.Table {
 				Transform:   transform.FromField("OwnerUUID"),
 			},
 			{
-				Name:        "urn",
-				Type:        proto.ColumnType_STRING,
-				Description: "The uniform resource name (URN) for the app.",
-				Transform:   transform.FromValue().Transform(appToURN),
-			},
-			{
 				Name:        "created_at",
 				Type:        proto.ColumnType_TIMESTAMP,
 				Description: "Time when the app was created.",
@@ -85,6 +79,12 @@ func tableDigitalOceanApp(ctx context.Context) *plugin.Table {
 				Name:        "updated_at",
 				Type:        proto.ColumnType_TIMESTAMP,
 				Description: "Time when the app was updated.",
+			},
+			{
+				Name:        "urn",
+				Type:        proto.ColumnType_STRING,
+				Description: "The uniform resource name (URN) for the app.",
+				Transform:   transform.FromValue().Transform(appToURN),
 			},
 			{
 				Name:        "active_deployment",
