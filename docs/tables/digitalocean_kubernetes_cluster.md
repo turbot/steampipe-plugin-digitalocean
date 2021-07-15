@@ -16,7 +16,7 @@ from
   digitalocean_kubernetes_cluster;
 ```
 
-### List clusters which are not running
+### List clusters that are not running
 
 ```sql
 select
@@ -30,7 +30,7 @@ where
   status <> 'running';
 ```
 
-### List clusters where auto upgrade not enabled
+### List clusters with auto-upgrade not enabled
 
 ```sql
 select
