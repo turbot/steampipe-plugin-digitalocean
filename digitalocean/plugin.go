@@ -18,6 +18,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		TableMap: map[string]*plugin.Table{
 			"digitalocean_account":            tableDigitalOceanAccount(ctx),
 			"digitalocean_action":             tableDigitalOceanAction(ctx),
+			"digitalocean_app":                tableDigitalOceanApp(ctx),
 			"digitalocean_balance":            tableDigitalOceanBalance(ctx),
 			"digitalocean_bill":               tableDigitalOceanBill(ctx),
 			"digitalocean_database":           tableDigitalOceanDatabase(ctx),
