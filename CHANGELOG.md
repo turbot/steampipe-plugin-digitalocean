@@ -1,3 +1,18 @@
+## v0.4.0 [2021-07-16]
+
+_What's new?_
+
+- New tables added
+  - [digitalocean_app](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_app) ([#18](https://github.com/turbot/steampipe-plugin-digitalocean/pull/18))
+  - [digitalocean_domain](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_domain) ([#17](https://github.com/turbot/steampipe-plugin-digitalocean/pull/17))
+  - [digitalocean_firewall](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_firewall) ([#15](https://github.com/turbot/steampipe-plugin-digitalocean/pull/15))
+  - [digitalocean_kubernetes_cluster](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_kubernetes_cluster) ([#16](https://github.com/turbot/steampipe-plugin-digitalocean/pull/16))
+
+_Enhancements_
+
+- Recompiled plugin with [steampipe-plugin-sdk v1.3.1](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v131--2021-07-15) ([#20](https://github.com/turbot/steampipe-plugin-digitalocean/pull/20))
+- Updated plugin license to Apache 2.0 per [turbot/steampipe#488](https://github.com/turbot/steampipe/issues/488)
+
 ## v0.3.0 [2021-03-11]
 
 _What's new?_
