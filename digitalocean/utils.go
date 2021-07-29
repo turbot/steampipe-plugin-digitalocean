@@ -53,6 +53,9 @@ func resourceInterfaceDescription(key string) string {
 }
 
 func timestampToIsoTimestamp(_ context.Context, d *transform.TransformData) (interface{}, error) {
+	if d.Value == nil {
+		return nil, nil
+	}
 	i := d.Value.(*godo.Timestamp)
 	return i.Format(time.RFC3339), nil
 }
