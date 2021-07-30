@@ -32,15 +32,15 @@ where
 
 ```sql
 select
-  region,
+  region_name,
   count(id),
   sum(size_gigabytes) as size_gigabytes
 from
   digitalocean_volume
 group by
-  region
+  region_name
 order by
-  region;
+  region_name;
 ```
 
 ### Largest volumes
@@ -48,7 +48,7 @@ order by
 ```sql
 select
   name,
-  region,
+  region_name,
   size_gigabytes
 from
   digitalocean_volume
@@ -63,7 +63,7 @@ limit
 ```sql
 select
   name,
-  region,
+  region_name,
   created_at
 from
   digitalocean_volume
@@ -78,7 +78,7 @@ limit
 ```sql
 select
   name,
-  region,
+  region_name,
   tags
 from
   digitalocean_volume
