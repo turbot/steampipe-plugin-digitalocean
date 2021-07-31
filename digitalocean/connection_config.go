@@ -6,9 +6,7 @@ import (
 )
 
 type digitaloceanConfig struct {
-	Token        *string `cty:"token"`
-	SpacesKey    *string `cty:"spaces_key"`
-	SpacesSecret *string `cty:"spaces_secret"`
+	Token *string `cty:"token"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
