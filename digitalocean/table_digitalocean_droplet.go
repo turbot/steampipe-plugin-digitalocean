@@ -71,7 +71,7 @@ func listDroplet(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData
 		PerPage: 100,
 	}
 	for {
-		droplets, resp, err := conn.Droplets.List(ctx, opts)
+		droplets, resp, err := conn.
 		if err != nil {
 			plugin.Logger(ctx).Error("digitalocean_droplet.listDroplet", "query_error", err, "opts", opts)
 			return nil, err

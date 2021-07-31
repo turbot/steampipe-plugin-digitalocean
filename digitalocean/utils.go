@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/digitalocean/godo"
+	"github.com/minio/minio-go"
 
 	"github.com/turbot/steampipe-plugin-sdk/plugin"
 	"github.com/turbot/steampipe-plugin-sdk/plugin/transform"
@@ -37,6 +38,28 @@ func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
 
 	client := godo.NewFromToken(token)
 	client.UserAgent = "Steampipe/0.x (+https://steampipe.io)"
+	return client, nil
+}
+
+func connectSpaces(_ context.Context, d *plugin.QueryData) (*minio.Client, error) {
+	digitaloceanConfig := GetConfig(d.Connection)
+	endpoint := "nyc3.digitaloceanspaces.com"
+	ssl := true
+
+	if digitaloceanConfig.SpacesKey != nil && digitaloceanConfig.SpacesSecret == nil {
+		return nil, fmt.Errorf("partial credentials found in connection config, missing: spaces_secret")
+	} else if digitaloceanConfig.SpacesSecret != nil && digitaloceanConfig.SpacesKey == nil {
+		return nil, fmt.Errorf("partial credentials found in connection config, missing: spaces_key")
+	} else if digitaloceanConfig.SpacesSecret == nil && digitaloceanConfig.SpacesKey == nil {
+		return nil, fmt.Errorf("'spaces_secret' and 'spaces_key' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
+	}
+
+	// Initiate a client using DigitalOcean Spaces.
+	client, err := minio.New(endpoint, *digitaloceanConfig.SpacesKey, *digitaloceanConfig.SpacesSecret, ssl)
+	if err != nil {
+		return nil, err
+	}
+
 	return client, nil
 }
 
