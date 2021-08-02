@@ -3,6 +3,6 @@ module github.com/turbot/steampipe-plugin-digitalocean
 go 1.15
 
 require (
-	github.com/digitalocean/godo v1.54.0
+	github.com/digitalocean/godo v1.64.2
 	github.com/turbot/steampipe-plugin-sdk v1.4.1
 )
