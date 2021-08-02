@@ -34,7 +34,7 @@ func tableDigitalOceanAlertPolicy(ctx context.Context) *plugin.Table {
 			{
 				Name:        "compare",
 				Type:        proto.ColumnType_STRING,
-				Description: "The compare parameter for this alert policy.",
+				Description: "The compare parameter for the metric in alert policy.",
 			},
 			{
 				Name:        "enabled",
@@ -54,12 +54,13 @@ func tableDigitalOceanAlertPolicy(ctx context.Context) *plugin.Table {
 			{
 				Name:        "value",
 				Type:        proto.ColumnType_INT,
-				Description: "The value of the alert policy.",
+				Description: "The value of the metric threshold in alert policy.",
 			},
 			{
-				Name:        "window",
+				Name:        "interval",
 				Type:        proto.ColumnType_STRING,
-				Description: "The window time of the alert policy.",
+				Description: "The interval time of the metric in alert policy.",
+				Transform:   transform.FromField("Window"),
 			},
 			{
 				Name:        "urn",
@@ -70,7 +71,7 @@ func tableDigitalOceanAlertPolicy(ctx context.Context) *plugin.Table {
 			{
 				Name:        "alerts",
 				Type:        proto.ColumnType_JSON,
-				Description: "Alert details of the alert policy.",
+				Description: "The notification details where alert details will be send.",
 			},
 			{
 				Name:        "entities",
