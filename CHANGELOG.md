@@ -1,3 +1,17 @@
+## v0.5.0 [2021-08-05]
+
+_What's new?_
+
+- New tables added
+  - [digitalocean_alert_policy](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_alert_policy) ([#33](https://github.com/turbot/steampipe-plugin-digitalocean/pull/33))
+
+_Enhancements_
+  - Updated: Recompiled plugin with [steampipe-plugin-sdk v1.4.1](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v141--2021-07-20) ([#22](https://github.com/turbot/steampipe-plugin-digitalocean/pull/22))
+
+_Bug fixes_
+  - Fixed: Example query updated in `digitalocean_volume` table ([#28](https://github.com/turbot/steampipe-plugin-digitalocean/pull/28))
+  - Fixed: Querying data for columns `next_backup_window_start` and `next_backup_window_end` no longer causes queries to fail in the `digitalocean_droplet` table ([#24](https://github.com/turbot/steampipe-plugin-digitalocean/pull/24))
+
 ## v0.4.0 [2021-07-16]
 
 _What's new?_
