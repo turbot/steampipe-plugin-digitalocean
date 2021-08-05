@@ -6,7 +6,7 @@ _What's new?_
   - [digitalocean_alert_policy](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_alert_policy) ([#33](https://github.com/turbot/steampipe-plugin-digitalocean/pull/33))
 
 _Enhancements_
-  - Updated: Recompiled plugin with [steampipe-plugin-sdk v1.4.1](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v131--2021-07-15) ([#22](https://github.com/turbot/steampipe-plugin-digitalocean/pull/22))
+  - Updated: Recompiled plugin with [steampipe-plugin-sdk v1.4.1](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v141--2021-07-20) ([#22](https://github.com/turbot/steampipe-plugin-digitalocean/pull/22))
 
 _Bug fixes_
   - Fixed: Example query updated in `digitalocean_volume` table ([#28](https://github.com/turbot/steampipe-plugin-digitalocean/pull/28))
