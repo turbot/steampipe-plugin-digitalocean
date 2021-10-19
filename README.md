@@ -1,3 +1,6 @@
+![image](https://hub.steampipe.io/images/plugins/turbot/do-social-graphic.png)
+
+# Digital Ocean Plugin for Steampipe
 <p align="center">
     <h1 align="center">DigitalOcean Plugin for Steampipe</h1>
 </p>
@@ -10,10 +13,20 @@
   </a>
 </p>
 
-## Query DigitalOcean with SQL
+Use SQL to query infrastructure including servers, networks, identity and more from AWS.
 
-Use SQL to query droplets, vpcs, users and more from DigitalOcean. For example:
+- **[Get started →](https://hub.steampipe.io/plugins/turbot/digitalocean)**
+- Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/digitalocean/tables)
+- Community: [Slack Channel](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)
+- Get involved: [Issues](https://github.com/turbot/steampipe-plugin-digitalocean/issues)
 
+## Quick Start
+Install the plugin with [Steampipe](https://steampipe.io):
+```shell
+steampipe plugin install digitalocean
+```
+
+Run a Query:
 ```sql
 select
   name,
@@ -23,26 +36,44 @@ from
   digitalocean_database;
 ```
 
-Learn about [Steampipe](https://steampipe.io/).
+## Developing
+Prerequisites:
+- [Steampipe](https://steampipe.io/downloads)
+- [Golang](https://golang.org/doc/install)
 
-## Get started
-
-**[Table documentation and examples &rarr;](https://hub.steampipe.io/plugins/turbot/digitalocean)**
-
-Install the plugin:
-
-```shell
-steampipe plugin install digitalocean
+Clone:
+```sh
+git clone https://github.com/turbot/steampipe-plugin-digitalocean.git
+cd steampipe-plugin-digitalocean
 ```
 
-## Get involved
+Build, which automatically installs the new version to your `~/.steampipe/plugins` directory:
+```
+make
+```
 
+Configure the plugin:
+```
+cp config/* ~/.steampipe/config
+vi ~/.steampipe/config/digitalocean.spc
+```
+
+Try it!
+```
+steampipe query
+> .inspect digitalocean
+```
+
+## Documentation
+- [Writing plugins](https://steampipe.io/docs/develop/writing-plugins)
+- [Writing your first table](https://steampipe.io/docs/develop/writing-your-first-table)
+
+## Community and Contribution
 ### Community
-
 The Steampipe community can be found on [GitHub Discussions](https://github.com/turbot/steampipe/discussions), where you can ask questions, voice ideas, and share your projects.
 
 Our [Code of Conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md) applies to all Steampipe community channels.
 
 ### Contributing
-
 Please see [CONTRIBUTING.md](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md).
+
