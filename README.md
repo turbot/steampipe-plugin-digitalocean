@@ -1,18 +1,23 @@
-<p align="center">
-    <h1 align="center">DigitalOcean Plugin for Steampipe</h1>
-</p>
-<p align="center">
-  <a aria-label="Steampipe logo" href="https://steampipe.io">
-    <img src="https://steampipe.io/images/steampipe_logo_wordmark_padding.svg" height="28">
-  </a>
-  <a aria-label="License" href="LICENSE">
-    <img alt="" src="https://img.shields.io/static/v1?label=license&message=Apache-2.0&style=for-the-badge&labelColor=777777&color=F3F1F0">
-  </a>
-</p>
+![image](https://hub.steampipe.io/images/plugins/turbot/do-social-graphic.png)
 
-## Query DigitalOcean with SQL
+# Digital Ocean Plugin for Steampipe
 
-Use SQL to query droplets, vpcs, users and more from DigitalOcean. For example:
+Use SQL to query infrastructure including servers, networks, identity and more from Digital Ocean.
+
+- **[Get started →](https://hub.steampipe.io/plugins/turbot/digitalocean)**
+- Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/digitalocean/tables)
+- Community: [Slack Channel](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)
+- Get involved: [Issues](https://github.com/turbot/steampipe-plugin-digitalocean/issues)
+
+## Quick Start
+
+Install the plugin with [Steampipe](https://steampipe.io):
+
+```shell
+steampipe plugin install digitalocean
+```
+
+Run a query:
 
 ```sql
 select
@@ -23,26 +28,50 @@ from
   digitalocean_database;
 ```
 
-Learn about [Steampipe](https://steampipe.io/).
+## Developing
 
-## Get started
+Prerequisites:
 
-**[Table documentation and examples &rarr;](https://hub.steampipe.io/plugins/turbot/digitalocean)**
+- [Steampipe](https://steampipe.io/downloads)
+- [Golang](https://golang.org/doc/install)
 
-Install the plugin:
+Clone:
 
-```shell
-steampipe plugin install digitalocean
+```sh
+git clone https://github.com/turbot/steampipe-plugin-digitalocean.git
+cd steampipe-plugin-digitalocean
 ```
 
-## Get involved
+Build, which automatically installs the new version to your `~/.steampipe/plugins` directory:
 
-### Community
+```
+make
+```
 
-The Steampipe community can be found on [GitHub Discussions](https://github.com/turbot/steampipe/discussions), where you can ask questions, voice ideas, and share your projects.
+Configure the plugin:
 
-Our [Code of Conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md) applies to all Steampipe community channels.
+```
+cp config/* ~/.steampipe/config
+vi ~/.steampipe/config/digitalocean.spc
+```
 
-### Contributing
+Try it!
 
-Please see [CONTRIBUTING.md](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md).
+```
+steampipe query
+> .inspect digitalocean
+```
+
+Further reading:
+
+- [Writing plugins](https://steampipe.io/docs/develop/writing-plugins)
+- [Writing your first table](https://steampipe.io/docs/develop/writing-your-first-table)
+
+## Contributing
+
+Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-plugin-digitalocean/blob/main/LICENSE).
+
+`help wanted` issues:
+
+- [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
+- [DigitalOcean Plugin](https://github.com/turbot/steampipe-plugin-digitalocean/labels/help%20wanted)
