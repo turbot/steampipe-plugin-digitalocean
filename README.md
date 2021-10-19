@@ -2,9 +2,6 @@
 
 # Digital Ocean Plugin for Steampipe
 <p align="center">
-    <h1 align="center">DigitalOcean Plugin for Steampipe</h1>
-</p>
-<p align="center">
   <a aria-label="Steampipe logo" href="https://steampipe.io">
     <img src="https://steampipe.io/images/steampipe_logo_wordmark_padding.svg" height="28">
   </a>
