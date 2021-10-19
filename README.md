@@ -10,7 +10,7 @@
   </a>
 </p>
 
-Use SQL to query infrastructure including servers, networks, identity and more from AWS.
+Use SQL to query infrastructure including servers, networks, identity and more from Digital Ocean.
 
 - **[Get started →](https://hub.steampipe.io/plugins/turbot/digitalocean)**
 - Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/digitalocean/tables)
