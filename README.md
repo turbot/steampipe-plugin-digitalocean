@@ -1,8 +1,8 @@
 ![image](https://hub.steampipe.io/images/plugins/turbot/do-social-graphic.png)
 
-# Digital Ocean Plugin for Steampipe
+# DigitalOcean Plugin for Steampipe
 
-Use SQL to query infrastructure including servers, networks, identity and more from Digital Ocean.
+Use SQL to query infrastructure including servers, networks, identity and more from DigitalOcean.
 
 - **[Get started →](https://hub.steampipe.io/plugins/turbot/digitalocean)**
 - Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/digitalocean/tables)
