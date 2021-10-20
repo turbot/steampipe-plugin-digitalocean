@@ -4,15 +4,29 @@ category: ["public cloud"]
 icon_url: "/images/plugins/turbot/digitalocean.svg"
 brand_color: "#008bcf"
 display_name: "DigitalOcean"
-name: "digitalocean"
+short_name: "digitalocean"
 description: "Steampipe plugin for querying DigitalOcean databases, networks, and other resources."
 ---
 
-# DigitalOcean
+# DigitalOcean + Steampipe
 
 Query your DigitalOcean infrastructure including droplets, databases, networks and more.
 
-## Installation
+[DigitalOcean](https://www.digitalocean.com/) provides scalable and on-demand cloud infrastructure solutions for hosting or storage needs.
+
+[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+
+For example: 
+
+Need example query and table 
+
+## Documentation
+
+- **[Table definitions & examples →](https://hub.steampipe.io/plugins/turbot/digitalocean/tables)**
+
+## Get started
+
+### Install
 
 Download and install the latest DigitalOcean plugin:
 
@@ -22,15 +36,19 @@ Installing plugin digitalocean...
 $
 ```
 
+### Credentials
+
+Needs Content
+
 ### Scope
 
 A DigitalOcean connection is scoped to a single DigitalOcean account, with a single set of credentials.
 
-## Connection Configuration
+### Connection Configuration
 
-Connection configurations are defined using HCL in one or more Steampipe config files. Steampipe will load ALL configuration files from `~/.steampipe/config` that have a `.spc` extension. A config file may contain multiple connections.
+Connection configuration is defined using HCL in one or more Steampipe config files. Steampipe will load ALL configuration files from `~/.steampipe/config` that have a `.spc` extension. A config file may contain multiple connections.
 
-Installing the latest digitalocean plugin will create a connection file (`~/.steampipe/config/digitalocean.spc`) with a single connection named `digitalocean`. You must modify this connection to include your Personal Access Token for DigitalOcean account.
+Installing the latest DigitalOcean plugin will create a connection file (`~/.steampipe/config/digitalocean.spc`) with a single connection named `digitalocean`. You must modify this connection to include your Personal Access Token for DigitalOcean account.
 
 ```hcl
 connection "digitalocean" {
@@ -41,17 +59,17 @@ connection "digitalocean" {
 
 ### Configuration Arguments
 
-The DigitalOcean plugin allows you set static credentials with the `token` argument. Personal access tokens function like ordinary OAuth access tokens -- You can use them to authenticate to the API by including it in a bearer-type Authorization header with your request. 
+The DigitalOcean plugin allows you set static credentials with the `token` argument. Personal access tokens function like ordinary OAuth access tokens -- You can use them to authenticate to the API by including it in a bearer-type authorization header along with your request. 
 
-To use the plugin, you'll first need to [create personal access token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/).  Read scope is required (write is not).
+To use the plugin, you will need to [create personal access token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/).  Read scope is required (write is not).
 
-If the `token` argument is not specified for a connection, the project will be determined in the following order:
-  - The DIGITALOCEAN_TOKEN environment variable, if set; otherwise
-  - The DIGITALOCEAN_ACCESS_TOKEN environment variable, if set (this is deprecated).
+If the `token` argument is not specified for a connection, the project will be determined as per the following order:
+  - DIGITALOCEAN_TOKEN environment variable, if set; otherwise
+  - DIGITALOCEAN_ACCESS_TOKEN environment variable, if set (this is deprecated).
 
-#### Example configurations
+#### Configuration Examples
 
-- A connection to a specific account, using token.
+- Using token to establish connection to a specific account.
 
   ```hcl
   connection "digitalocean_my_account" {
@@ -60,7 +78,8 @@ If the `token` argument is not specified for a connection, the project will be d
   }
   ```
 
-- A common configuration is to have multiple connections to different DigitalOcean accounts.
+- Common configuration having multiple connections to different DigitalOcean accounts.
+
   ```hcl
   connection "account_aaa" {
     plugin    = "digitalocean"
@@ -75,3 +94,12 @@ If the `token` argument is not specified for a connection, the project will be d
     token     = "1646968370949-df954218b5da5b8614c85cc4541klmno"
   }
   ```
+
+## Configuring DigitalOCean Credentials
+
+Needs content
+
+## Get Involved
+
+* Open source: https://github.com/turbot/steampipe-plugin-digitalocean
+* Community: [Slack Channel](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)
