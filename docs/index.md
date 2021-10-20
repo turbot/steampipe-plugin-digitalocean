@@ -20,7 +20,7 @@ Query your DigitalOcean infrastructure including droplets, databases, networks a
 
 For example: 
 
-Need example query and table 
+Placeholder for example query and table 
 
 ## Documentation
 
@@ -33,14 +33,12 @@ Need example query and table
 Download and install the latest DigitalOcean plugin:
 
 ```bash
-$ steampipe plugin install digitalocean
-Installing plugin digitalocean...
-$
+steampipe plugin install digitalocean
 ```
 
 ### Credentials
 
-Needs Content
+Placeholder for credentials
 
 ### Scope
 
@@ -63,7 +61,7 @@ connection "digitalocean" {
 
 The DigitalOcean plugin allows you set static credentials with the `token` argument. Personal access tokens function like ordinary OAuth access tokens -- You can use them to authenticate to the API by including it in a bearer-type authorization header along with your request. 
 
-To use the plugin, you will need to [create personal access token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/).  Read scope is required (write is not).
+To use the plugin, you will need to [create personal access token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/). Read scope is required (write is not).
 
 If the `token` argument is not specified for a connection, the project will be determined as per the following order:
   - DIGITALOCEAN_TOKEN environment variable, if set; otherwise
@@ -99,7 +97,7 @@ If the `token` argument is not specified for a connection, the project will be d
 
 ## Configuring DigitalOCean Credentials
 
-Needs content
+Placeholder for credentials
 
 ## Get Involved
 
