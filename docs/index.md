@@ -12,7 +12,7 @@ og_image: image needed
 
 # DigitalOcean + Steampipe
 
-Query your DigitalOcean infrastructure including droplets, databases, networks and more.
+Query your DigitalOcean infrastructure including droplets, databases, networks, and more.
 
 [DigitalOcean](https://www.digitalocean.com/) provides scalable and on-demand cloud infrastructure solutions for hosting or storage needs.
 
@@ -97,7 +97,7 @@ If the `token` argument is not specified for a connection, the project will be d
 
 ## Configuring DigitalOCean Credentials
 
-Placeholder for credentials
+Placeholder for configuring credentials
 
 ## Get Involved
 
