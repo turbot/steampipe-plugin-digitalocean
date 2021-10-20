@@ -6,6 +6,8 @@ brand_color: "#008bcf"
 display_name: "DigitalOcean"
 short_name: "digitalocean"
 description: "Steampipe plugin for querying DigitalOcean databases, networks, and other resources."
+og_description: "Query DigitalOcean with SQL! Open source CLI. No DB required." 
+og_image: image needed
 ---
 
 # DigitalOcean + Steampipe
