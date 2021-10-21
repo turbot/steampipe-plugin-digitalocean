@@ -20,7 +20,26 @@ Query your DigitalOcean infrastructure including droplets, databases, networks, 
 
 For example:
 
-Placeholder for example query and table
+```sql
+select 
+  slug, 
+  name, 
+  available 
+from 
+  digitalocean_region
+ ```
+ 
+ ```
++------+-------------+-----------+
+| slug | name        | available |
++------+-------------+-----------+
+| nyc1 | New York 1  | true      |
+| nyc3 | New York 3  | true      |
+| ams2 | Amsterdam 2 | false     |
+| sgp1 | Singapore 1 | true      |
+| nyc2 | New York 2  | false     |
++------+-------------+-----------+
+```
 
 ## Documentation
 
