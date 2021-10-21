@@ -6,8 +6,8 @@ brand_color: "#008bcf"
 display_name: "DigitalOcean"
 short_name: "digitalocean"
 description: "Steampipe plugin for querying DigitalOcean databases, networks, and other resources."
-og_description: "Query DigitalOcean with SQL! Open source CLI. No DB required." 
-og_image: image needed
+og_description: "Query DigitalOcean with SQL! Open source CLI. No DB required."
+og_image: "/images/plugins/turbot/do-social-graphic.png"
 ---
 
 # DigitalOcean + Steampipe
@@ -18,9 +18,9 @@ Query your DigitalOcean infrastructure including droplets, databases, networks, 
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
-For example: 
+For example:
 
-Placeholder for example query and table 
+Placeholder for example query and table
 
 ## Documentation
 
@@ -59,7 +59,7 @@ connection "digitalocean" {
 
 ### Configuration Arguments
 
-The DigitalOcean plugin allows you set static credentials with the `token` argument. Personal access tokens function like ordinary OAuth access tokens -- You can use them to authenticate to the API by including it in a bearer-type authorization header along with your request. 
+The DigitalOcean plugin allows you set static credentials with the `token` argument. Personal access tokens function like ordinary OAuth access tokens -- You can use them to authenticate to the API by including it in a bearer-type authorization header along with your request.
 
 To use the plugin, you will need to [create personal access token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/). Read scope is required (write is not).
 
