@@ -21,11 +21,11 @@ Query your DigitalOcean infrastructure including droplets, databases, networks, 
 For example:
 
 ```sql
-select 
-  slug, 
-  name, 
-  available 
-from 
+select
+  slug,
+  name,
+  available
+from
   digitalocean_region
  ```
  
