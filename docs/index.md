@@ -57,7 +57,7 @@ steampipe plugin install digitalocean
 
 ### Configuration
 
-Installing the latest digitalocean plugin will create a config file (`~/.steampipe/config/digitalocean.spc`) with a single connection named `digitalocean`: 
+Installing the latest DigitalOcean plugin will create a config file (`~/.steampipe/config/digitalocean.spc`) with a single connection named `digitalocean`: 
 
 ```hcl
 connection "digitalocean" {
@@ -83,7 +83,7 @@ connection "digitalocean" {
   }
   ```
 
-- Create multiple connections to different accounts:
+- Create connections to multiple accounts:
 
   ```hcl
   connection "account_aaa" {
