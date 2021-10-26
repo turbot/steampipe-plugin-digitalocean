@@ -68,7 +68,7 @@ connection "digitalocean" {
   # Alternatively, this can be specified using environment variables ordered by precedence:
   #   - DIGITALOCEAN_TOKEN
   #   - DIGITALOCEAN_ACCESS_TOKEN
-  #token = "YOUR_DIGITALOCEAN_ACCESS_TOKEN"
+  # token = "YOUR_DIGITALOCEAN_ACCESS_TOKEN"
 }
 ```
 
