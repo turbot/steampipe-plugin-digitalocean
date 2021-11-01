@@ -43,7 +43,7 @@ from
 
 ## Documentation
 
-- **[Table definitions & examples →](https://hub.steampipe.io/plugins/turbot/digitalocean/tables)**
+- **[Table definitions & examples →](/plugins/turbot/digitalocean/tables)**
 
 ## Get started
 
