@@ -71,11 +71,11 @@ from
 select
   name,
   region_slug,
-  size_gigabytes
+  memory
 from
   digitalocean_droplet
 order by
-  size_gigabytes desc
+  memory desc
 limit
   10;
 ```
