@@ -30,7 +30,7 @@ where
 select
   region_slug,
   count(id),
-  sum(size_gigabytes) as size_gigabytes
+  sum(memory) as total_memory
 from
   digitalocean_droplet
 group by
