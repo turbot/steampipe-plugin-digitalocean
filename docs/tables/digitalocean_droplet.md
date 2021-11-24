@@ -30,7 +30,7 @@ where
 select
   region_slug,
   count(id),
-  sum(size_gigabytes) as size_gigabytes
+  sum(memory) as total_memory
 from
   digitalocean_droplet
 group by
@@ -71,11 +71,11 @@ from
 select
   name,
   region_slug,
-  size_gigabytes
+  memory
 from
   digitalocean_droplet
 order by
-  size_gigabytes desc
+  memory desc
 limit
   10;
 ```
