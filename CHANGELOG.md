@@ -1,3 +1,12 @@
+## v0.6.0 [2021-11-24]
+
+_Enhancements_
+  - Recompiled plugin with [steampipe-plugin-sdk v1.8.2](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v182--2021-11-22) and Go version 1.17 ([#41](https://github.com/turbot/steampipe-plugin-digitalocean/pull/41))
+  - Updated the README.md file to the latest format ([#36](https://github.com/turbot/steampipe-plugin-digitalocean/pull/36))
+
+_Bug fixes_
+  - Example query updated in `digitalocean_droplet` table ([#43](https://github.com/turbot/steampipe-plugin-digitalocean/pull/43))
+
 ## v0.5.0 [2021-08-05]
 
 _What's new?_
