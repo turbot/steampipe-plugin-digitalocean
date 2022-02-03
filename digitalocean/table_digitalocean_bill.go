@@ -20,7 +20,7 @@ func tableDigitalOceanBill(ctx context.Context) *plugin.Table {
 			// Top columns
 			{Name: "date", Type: proto.ColumnType_TIMESTAMP, Description: "Time the billing history entry occured."},
 			// Other columns
-			{Name: "amount", Type: proto.ColumnType_DOUBLE, Description: "Amount of the billing history entry."},
+			{Name: "amount", Type: proto.ColumnType_STRING, Description: "Amount of the billing history entry."},
 			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description of the billing history entry."},
 			{Name: "invoice_id", Type: proto.ColumnType_STRING, Description: "ID of the invoice associated with the billing history entry, if applicable."},
 			{Name: "invoice_uuid", Type: proto.ColumnType_STRING, Description: "UUID of the invoice associated with the billing history entry, if applicable."},
