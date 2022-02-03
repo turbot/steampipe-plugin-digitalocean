@@ -6,6 +6,8 @@ brand_color: "#008bcf"
 display_name: "DigitalOcean"
 name: "digitalocean"
 description: "Steampipe plugin for querying DigitalOcean databases, networks, and other resources."
+og_image: "/images/plugins/turbot/do-social-graphic.png"
+og_description: "Steampipe plugin for querying DigitalOcean databases, networks, and other resources."
 ---
 
 # DigitalOcean
