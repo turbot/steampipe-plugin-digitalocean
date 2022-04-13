@@ -37,7 +37,8 @@ func tableDigitalOceanDatabase(ctx context.Context) *plugin.Table {
 			{Name: "connection_uri", Type: proto.ColumnType_STRING, Transform: transform.FromField("Connection.URI"), Description: "A connection string in the format accepted by the psql command. This is provided as a convenience and should be able to be constructed by the other attributes."},
 			{Name: "connection_user", Type: proto.ColumnType_STRING, Transform: transform.FromField("Connection.User"), Description: "The default user for the database."},
 			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the database was created."},
-			{Name: "db_names", Type: proto.ColumnType_JSON, Description: "An array of strings containing the names of databases created in the database cluster."},
+			{Name: "db_names", Type: proto.ColumnType_JSON, Description: "An array of strings containing the names of databases created in the database cluster.", Hydrate: getDbs, Transform: transform.FromValue()},
+			{Name: "firewall_rules", Type: proto.ColumnType_JSON, Description: "A list of rules describing the inbound source to a database.", Hydrate: getFirewallRules, Transform: transform.FromValue()},
 			{Name: "maintenance_window_day", Type: proto.ColumnType_STRING, Transform: transform.FromField("MaintenanceWindow.Day"), Description: "The day of the week on which to apply maintenance updates (e.g. \"tuesday\")."},
 			{Name: "maintenance_window_description", Type: proto.ColumnType_JSON, Transform: transform.FromField("MaintenanceWindow.Description"), Description: "A list of strings, each containing information about a pending maintenance update."},
 			{Name: "maintenance_window_hour", Type: proto.ColumnType_STRING, Transform: transform.FromField("MaintenanceWindow.Hour"), Description: "The hour in UTC at which maintenance updates will be applied in 24 hour format (e.g. \"16:00:00\")."},
@@ -56,7 +57,7 @@ func tableDigitalOceanDatabase(ctx context.Context) *plugin.Table {
 			{Name: "status", Type: proto.ColumnType_STRING, Description: "A string representing the current status of the database cluster. Possible values include creating, online, resizing, and migrating."},
 			{Name: "tags_src", Type: proto.ColumnType_JSON, Transform: transform.FromField("Tags"), Description: "An array of tags that have been applied to the database cluster."},
 			{Name: "urn", Type: proto.ColumnType_STRING, Transform: transform.FromValue().Transform(databaseToURN), Description: "The uniform resource name (URN) for the database."},
-			{Name: "users", Type: proto.ColumnType_JSON, Description: "An array containing objects describing the database's users."},
+			{Name: "users", Type: proto.ColumnType_JSON, Description: "An array containing objects describing the database's users.", Hydrate: getUsers, Transform: transform.FromValue()},
 			// Resource interface
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromValue().Transform(databaseToURN).Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromField("Tags").Transform(labelsToTagsMap), Description: resourceInterfaceDescription("tags")},
@@ -116,6 +117,63 @@ func getDatabase(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 		return nil, err
 	}
 	return *result, nil
+}
+
+func getUsers(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	conn, err := connect(ctx, d)
+	if err != nil {
+		plugin.Logger(ctx).Error("digitalocean_database.getUsers", "connection_error", err)
+		return nil, err
+	}
+	id := h.Item.(godo.Database).ID
+	users, resp, err := conn.Databases.ListUsers(ctx, id, nil)
+	if err != nil {
+		if strings.Contains(err.Error(), ": 404") {
+			plugin.Logger(ctx).Warn("digitalocean_database.getUsers", "not_found_error", err, "id", id, "resp", resp)
+			return nil, nil
+		}
+		plugin.Logger(ctx).Error("digitalocean_database.getUsers", "query_error", err, "id", id, "resp", resp)
+		return nil, err
+	}
+	return users, nil
+}
+
+func getDbs(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	conn, err := connect(ctx, d)
+	if err != nil {
+		plugin.Logger(ctx).Error("digitalocean_database.getDbs", "connection_error", err)
+		return nil, err
+	}
+	id := h.Item.(godo.Database).ID
+	dbs, resp, err := conn.Databases.ListDBs(ctx, id, nil)
+	if err != nil {
+		if strings.Contains(err.Error(), ": 404") {
+			plugin.Logger(ctx).Warn("digitalocean_database.getDbs", "not_found_error", err, "id", id, "resp", resp)
+			return nil, nil
+		}
+		plugin.Logger(ctx).Error("digitalocean_database.getDbs", "query_error", err, "id", id, "resp", resp)
+		return nil, err
+	}
+	return dbs, nil
+}
+
+func getFirewallRules(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	conn, err := connect(ctx, d)
+	if err != nil {
+		plugin.Logger(ctx).Error("digitalocean_database.getFirewallRules", "connection_error", err)
+		return nil, err
+	}
+	id := h.Item.(godo.Database).ID
+	firewall, resp, err := conn.Databases.GetFirewallRules(ctx, id)
+	if err != nil {
+		if strings.Contains(err.Error(), ": 404") {
+			plugin.Logger(ctx).Warn("digitalocean_database.getFirewallRules", "not_found_error", err, "id", id, "resp", resp)
+			return nil, nil
+		}
+		plugin.Logger(ctx).Error("digitalocean_database.getFirewallRules", "query_error", err, "id", id, "resp", resp)
+		return nil, err
+	}
+	return firewall, nil
 }
 
 func databaseToURN(_ context.Context, d *transform.TransformData) (interface{}, error) {
