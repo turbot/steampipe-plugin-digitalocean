@@ -79,10 +79,12 @@ group by
 order by
   count desc;
 ```
+
 ### Get database firewall trusted sources
 
 ```sql
 select 
+  name as "Name",
   firewall ->> 'type' as "Firewall Source",
   firewall ->> 'value' as "Source ID" 
 from 
