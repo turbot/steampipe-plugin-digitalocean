@@ -22,10 +22,10 @@ select
   extract(year from date) as year,
   sum(- to_number(amount,'L9G999g999.99')) as payment
 from
-  digitalocean.digitalocean_bill
-where 
+  digitalocean_bill
+where
   type = 'Payment'
 group by
-  year
+  year;
 ```
 
