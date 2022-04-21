@@ -17,7 +17,7 @@ from
 
 ### Amounts by year
 
-```
+```sql
 select
   extract(year from date) as year,
   sum(- to_number(amount,'L9G999g999.99')) as payment
@@ -28,4 +28,3 @@ where
 group by
   year;
 ```
-
