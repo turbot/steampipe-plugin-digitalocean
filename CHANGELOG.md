@@ -1,11 +1,24 @@
+## v0.7.0 [2022-04-22]
+
+_Enhancements_
+
+- Added column `firewall_rules` to `digitalocean_database` table. ([#48](https://github.com/turbot/steampipe-plugin-digitalocean/pull/48))
+
+_Bug fixes_
+
+- Fixed columns `users` and `db_names` in `digitalocean_database` table to correctly return data. ([#48](https://github.com/turbot/steampipe-plugin-digitalocean/pull/48))
+- Updated the data type of column `amount` in `digitalocean_bill` table from `double` to `string`. ([#46](https://github.com/turbot/steampipe-plugin-digitalocean/pull/46))
+
 ## v0.6.0 [2021-11-24]
 
 _Enhancements_
-  - Recompiled plugin with [steampipe-plugin-sdk v1.8.2](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v182--2021-11-22) and Go version 1.17 ([#41](https://github.com/turbot/steampipe-plugin-digitalocean/pull/41))
-  - Updated the README.md file to the latest format ([#36](https://github.com/turbot/steampipe-plugin-digitalocean/pull/36))
+
+- Recompiled plugin with [steampipe-plugin-sdk v1.8.2](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v182--2021-11-22) and Go version 1.17 ([#41](https://github.com/turbot/steampipe-plugin-digitalocean/pull/41))
+- Updated the README.md file to the latest format ([#36](https://github.com/turbot/steampipe-plugin-digitalocean/pull/36))
 
 _Bug fixes_
-  - Example query updated in `digitalocean_droplet` table ([#43](https://github.com/turbot/steampipe-plugin-digitalocean/pull/43))
+
+- Example query updated in `digitalocean_droplet` table ([#43](https://github.com/turbot/steampipe-plugin-digitalocean/pull/43))
 
 ## v0.5.0 [2021-08-05]
 
@@ -15,11 +28,13 @@ _What's new?_
   - [digitalocean_alert_policy](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_alert_policy) ([#33](https://github.com/turbot/steampipe-plugin-digitalocean/pull/33))
 
 _Enhancements_
-  - Updated: Recompiled plugin with [steampipe-plugin-sdk v1.4.1](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v141--2021-07-20) ([#22](https://github.com/turbot/steampipe-plugin-digitalocean/pull/22))
+
+- Updated: Recompiled plugin with [steampipe-plugin-sdk v1.4.1](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v141--2021-07-20) ([#22](https://github.com/turbot/steampipe-plugin-digitalocean/pull/22))
 
 _Bug fixes_
-  - Fixed: Example query updated in `digitalocean_volume` table ([#28](https://github.com/turbot/steampipe-plugin-digitalocean/pull/28))
-  - Fixed: Querying data for columns `next_backup_window_start` and `next_backup_window_end` no longer causes queries to fail in the `digitalocean_droplet` table ([#24](https://github.com/turbot/steampipe-plugin-digitalocean/pull/24))
+
+- Fixed: Example query updated in `digitalocean_volume` table ([#28](https://github.com/turbot/steampipe-plugin-digitalocean/pull/28))
+- Fixed: Querying data for columns `next_backup_window_start` and `next_backup_window_end` no longer causes queries to fail in the `digitalocean_droplet` table ([#24](https://github.com/turbot/steampipe-plugin-digitalocean/pull/24))
 
 ## v0.4.0 [2021-07-16]
 
@@ -46,10 +61,10 @@ _What's new?_
   - [digitalocean_bill](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_bill)
 
 _Enhancements_
-  - Added `private_ipv4`, `public_ipv4`, `public_ipv6` columns to `digitalocean_droplet` table
-  - Renamed column `size` to `size_slug` in `digitalocean_load_balancer` table
-  - Renamed column `region` to `region_slug` in `digitalocean_load_balancer` table
-  - Updated columns using deprecated `ColumnType_DATETIME` type to instead use `ColumnType_TIMESTAMP` type
+- Added `private_ipv4`, `public_ipv4`, `public_ipv6` columns to `digitalocean_droplet` table
+- Renamed column `size` to `size_slug` in `digitalocean_load_balancer` table
+- Renamed column `region` to `region_slug` in `digitalocean_load_balancer` table
+- Updated columns using deprecated `ColumnType_DATETIME` type to instead use `ColumnType_TIMESTAMP` type
 
 ## v0.2.1 [2021-02-25]
 
