@@ -2,12 +2,12 @@
 
 _Enhancements_
 
-- Updated the data type of column `amount` in `digitalocean_bill` table to string. ([#46](https://github.com/turbot/steampipe-plugin-digitalocean/pull/46))
-- Add column `firewall_rules` to `digitalocean_database` table. ([#48](https://github.com/turbot/steampipe-plugin-digitalocean/pull/48))
+- Added column `firewall_rules` to `digitalocean_database` table. ([#48](https://github.com/turbot/steampipe-plugin-digitalocean/pull/48))
 
 _Bug fixes_
 
-- Fixed `users` and `db_names` in `digitalocean_database` table to correctly return data ([#48](https://github.com/turbot/steampipe-plugin-digitalocean/pull/48))
+- Fixed columns `users` and `db_names` in `digitalocean_database` table to correctly return data. ([#48](https://github.com/turbot/steampipe-plugin-digitalocean/pull/48))
+- Updated the data type of column `amount` in `digitalocean_bill` table from `double` to `string`. ([#46](https://github.com/turbot/steampipe-plugin-digitalocean/pull/46))
 
 ## v0.6.0 [2021-11-24]
 
