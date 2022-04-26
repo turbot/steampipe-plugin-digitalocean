@@ -21,10 +21,8 @@ func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
 	// 2. DIGITALOCEAN_ACCESS_TOKEN
 
 	digitaloceanConfig := GetConfig(d.Connection)
-	if &digitaloceanConfig != nil {
-		if digitaloceanConfig.Token != nil {
-			os.Setenv("DIGITALOCEAN_TOKEN", *digitaloceanConfig.Token)
-		}
+	if digitaloceanConfig.Token != nil {
+		os.Setenv("DIGITALOCEAN_TOKEN", *digitaloceanConfig.Token)
 	}
 
 	token, ok := os.LookupEnv("DIGITALOCEAN_TOKEN")
