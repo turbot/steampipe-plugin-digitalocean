@@ -9,8 +9,8 @@ import (
 
 	"github.com/digitalocean/godo"
 
-	"github.com/turbot/steampipe-plugin-sdk/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v3/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v3/plugin/transform"
 )
 
 func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
