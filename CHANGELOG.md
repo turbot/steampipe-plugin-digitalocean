@@ -1,3 +1,10 @@
+## v0.8.0 [2022-04-28]
+
+_Enhancements_
+
+- Added support for native Linux ARM and Mac M1 builds. ([#50](https://github.com/turbot/steampipe-plugin-digitalocean/pull/50))
+- Recompiled plugin with [steampipe-plugin-sdk v3.1.0](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v310--2022-03-30) and Go version `1.18`. ([#51](https://github.com/turbot/steampipe-plugin-digitalocean/pull/51))
+
 ## v0.7.0 [2022-04-22]
 
 _Enhancements_
