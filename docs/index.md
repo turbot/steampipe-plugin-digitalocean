@@ -4,7 +4,7 @@ category: ["public cloud"]
 icon_url: "/images/plugins/turbot/digitalocean.svg"
 brand_color: "#008bcf"
 display_name: "DigitalOcean"
-short_name: "digitalocean"
+name: "digitalocean"
 description: "Steampipe plugin for querying DigitalOcean databases, networks, and other resources."
 og_description: "Query DigitalOcean with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/do-social-graphic.png"
