@@ -1,3 +1,9 @@
+## v0.8.1 [2022-05-24]
+
+_Bug fixes_
+
+- Fixed the Slack community links in README and docs/index.md files. ([#58](https://github.com/turbot/steampipe-plugin-digitalocean/pull/58))
+
 ## v0.8.0 [2022-04-28]
 
 _Enhancements_
