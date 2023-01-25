@@ -34,13 +34,13 @@ func tableDigitalOceanContainerRegistry(ctx context.Context) *plugin.Table {
 				Name:        "storage_usage_bytes",
 				Type:        proto.ColumnType_INT,
 				Description: "The amount of storage used in the registry in bytes.",
-				Transform: transform.FromField("StorageUsageBytes"),
+				Transform:   transform.FromField("StorageUsageBytes"),
 			},
 			{
 				Name:        "storage_usage_bytes_updated_at",
 				Type:        proto.ColumnType_TIMESTAMP,
 				Description: "The time at which the storage usage was updated. Storage usage is calculated asynchronously, and may not immediately reflect pushes to the registry.",
-				Transform: transform.FromField("StorageUsageBytesUpdatedAt"),
+				Transform:   transform.FromField("StorageUsageBytesUpdatedAt"),
 			},
 			{
 				Name:        "urn",
