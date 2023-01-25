@@ -75,3 +75,20 @@ order by
   max_nodes desc
 limit 5;
 ```
+
+### Get cluster details for the node pools
+
+```sql
+select
+  n.id as node_pool_id,
+  n.name,
+  n.cluster_id,
+  c.status as cluster_status,
+  c.cluster_subnet,
+  c.endpoint as cluster_endpoint
+from
+  digitalocean_kubernetes_node_pool as n,
+  digitalocean_kubernetes_cluster as c
+where
+  c.id = cluster_id;
+````
