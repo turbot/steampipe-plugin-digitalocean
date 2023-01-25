@@ -1,3 +1,19 @@
+## v0.11.0 [2023-01-25]
+
+_What's new?_
+
+- New tables added
+  - [digitalocean_container_registry](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_container_registry) ([#70](https://github.com/turbot/steampipe-plugin-digitalocean/pull/70))
+  - [digitalocean_kubernetes_node_pool](https://hub.steampipe.io/plugins/turbot/digitalocean/tables/digitalocean_kubernetes_node_pool) ([#71](https://github.com/turbot/steampipe-plugin-digitalocean/pull/71))
+
+_Bug fixes_
+
+- Fixed the `digitalocean_snapshot` table to correctly return data instead of an error when an `id` is passed in the `where` clause. ([#69](https://github.com/turbot/steampipe-plugin-digitalocean/pull/69))
+
+_Dependencies_
+
+- Recompiled plugin with [steampipe-plugin-sdk v4.1.11](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v4111-2023-01-24) which fixes the issue of non-caching of all the columns of the queried table. ([#72](https://github.com/turbot/steampipe-plugin-digitalocean/pull/72))
+
 ## v0.10.0 [2022-09-27]
 
 _Dependencies_
