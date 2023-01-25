@@ -22,6 +22,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"digitalocean_app":                  tableDigitalOceanApp(ctx),
 			"digitalocean_balance":              tableDigitalOceanBalance(ctx),
 			"digitalocean_bill":                 tableDigitalOceanBill(ctx),
+			"digitalocean_container_registry":   tableDigitalOceanContainerRegistry(ctx),
 			"digitalocean_database":             tableDigitalOceanDatabase(ctx),
 			"digitalocean_domain":               tableDigitalOceanDomain(ctx),
 			"digitalocean_droplet":              tableDigitalOceanDroplet(ctx),
