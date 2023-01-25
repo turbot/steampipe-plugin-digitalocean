@@ -18,7 +18,7 @@ from
   digitalocean_kubernetes_node_pool;
 ```
 
-### List node pools that are not autoscale enabled
+### List node pools with autoscaling disabled
 
 ```sql
 select
