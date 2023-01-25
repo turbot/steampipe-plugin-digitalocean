@@ -92,7 +92,7 @@ func getSnapshot(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 		plugin.Logger(ctx).Error("digitalocean_snapshot.getSnapshot", "query_error", err, "quals", quals, "resp", resp)
 		return nil, err
 	}
-	return result, nil
+	return *result, nil
 }
 
 func snapshotToURN(_ context.Context, d *transform.TransformData) (interface{}, error) {
