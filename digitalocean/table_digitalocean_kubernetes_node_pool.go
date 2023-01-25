@@ -136,7 +136,7 @@ func listKubernetesNodePools(ctx context.Context, d *plugin.QueryData, h *plugin
 
 	conn, err := connect(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("listKubernetesNodePools", "connection_error", err)
+		plugin.Logger(ctx).Error("digitalocean_kubernetes_node_pool.listKubernetesNodePools", "connection_error", err)
 		return nil, err
 	}
 	opts := &godo.ListOptions{
@@ -146,7 +146,7 @@ func listKubernetesNodePools(ctx context.Context, d *plugin.QueryData, h *plugin
 	for {
 		nodePools, resp, err := conn.Kubernetes.ListNodePools(ctx, cluster.ID, opts)
 		if err != nil {
-			plugin.Logger(ctx).Error("listKubernetesNodePools", "query_error", err, "id", cluster.ID)
+			plugin.Logger(ctx).Error("digitalocean_kubernetes_node_pool.listKubernetesNodePools", "query_error", err, "id", cluster.ID)
 			return nil, err
 		}
 		for _, nodePool := range nodePools {
@@ -179,17 +179,16 @@ func getKubernetesNodePool(ctx context.Context, d *plugin.QueryData, h *plugin.H
 
 	conn, err := connect(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("getKubernetesNodePool", "connection_error", err)
+		plugin.Logger(ctx).Error("digitalocean_kubernetes_node_pool.getKubernetesNodePool", "connection_error", err)
 		return nil, err
 	}
 
 	result, resp, err := conn.Kubernetes.GetNodePool(ctx, clusterId, id)
 	if err != nil {
 		if strings.Contains(err.Error(), ": 404") {
-			plugin.Logger(ctx).Warn("getKubernetesNodePool", "not_found_error", err, "resp", resp)
 			return nil, nil
 		}
-		plugin.Logger(ctx).Error("getKubernetesNodePool", "query_error", err, "resp", resp)
+		plugin.Logger(ctx).Error("digitalocean_kubernetes_node_pool.getKubernetesNodePool", "query_error", err, "resp", resp)
 		return nil, err
 	}
 	return &KubernetesNodePoolInfo{*result, clusterId}, nil
