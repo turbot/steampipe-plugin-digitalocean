@@ -152,7 +152,7 @@ func getAlertPolicy(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateD
 		return nil, err
 	}
 
-	uuid := d.KeyColumnQuals["uuid"].GetStringValue()
+	uuid := d.EqualsQuals["uuid"].GetStringValue()
 
 	// Handle empty uuid
 	if uuid == "" {

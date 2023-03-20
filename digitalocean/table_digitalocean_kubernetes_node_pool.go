@@ -169,8 +169,8 @@ func listKubernetesNodePools(ctx context.Context, d *plugin.QueryData, h *plugin
 //// HYDRATE FUNCTIONS
 
 func getKubernetesNodePool(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	id := d.KeyColumnQuals["id"].GetStringValue()
-	clusterId := d.KeyColumnQuals["cluster_id"].GetStringValue()
+	id := d.EqualsQuals["id"].GetStringValue()
+	clusterId := d.EqualsQuals["cluster_id"].GetStringValue()
 
 	// Handle empty id
 	if id == "" || clusterId == "" {

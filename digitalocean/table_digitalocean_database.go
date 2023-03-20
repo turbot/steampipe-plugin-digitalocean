@@ -105,7 +105,7 @@ func getDatabase(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 		plugin.Logger(ctx).Error("digitalocean_database.getDatabase", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	id := quals["id"].GetStringValue()
 	result, resp, err := conn.Databases.Get(ctx, id)
 	if err != nil {

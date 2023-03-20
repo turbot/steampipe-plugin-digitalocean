@@ -71,7 +71,7 @@ func getTag(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (in
 		plugin.Logger(ctx).Error("digitalocean_tag.getTag", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	name := quals["name"].GetStringValue()
 	result, resp, err := conn.Tags.Get(ctx, name)
 	if err != nil {

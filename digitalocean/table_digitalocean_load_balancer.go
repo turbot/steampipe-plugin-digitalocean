@@ -100,7 +100,7 @@ func getLoadBalancer(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 		plugin.Logger(ctx).Error("digitalocean_load_balancer.getLoadBalancer", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	id := quals["id"].GetStringValue()
 	result, resp, err := conn.LoadBalancers.Get(ctx, id)
 	if err != nil {

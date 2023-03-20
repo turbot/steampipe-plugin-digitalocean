@@ -88,7 +88,7 @@ func getImage(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 		plugin.Logger(ctx).Error("digitalocean_image.getImage", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	id := int(quals["id"].GetInt64Value())
 	slug := quals["slug"].GetStringValue()
 	var result *godo.Image

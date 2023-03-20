@@ -78,7 +78,7 @@ func getFloatingIP(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 		plugin.Logger(ctx).Error("digitalocean_floating_ip.getFloatingIP", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	ip := quals["ip"].GetInetValue().GetAddr()
 	result, resp, err := conn.FloatingIPs.Get(ctx, ip)
 	if err != nil {

@@ -77,7 +77,7 @@ func getKey(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (in
 		plugin.Logger(ctx).Error("digitalocean_key.getKey", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	id := int(quals["id"].GetInt64Value())
 	fingerprint := quals["fingerprint"].GetStringValue()
 	var result *godo.Key
