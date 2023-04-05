@@ -6,9 +6,9 @@ import (
 
 	"github.com/digitalocean/godo"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableDigitalOceanAction(ctx context.Context) *plugin.Table {
@@ -79,7 +79,7 @@ func getAction(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		plugin.Logger(ctx).Error("digitalocean_action.getAction", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	id := int(quals["id"].GetInt64Value())
 	result, resp, err := conn.Actions.Get(ctx, id)
 	if err != nil {

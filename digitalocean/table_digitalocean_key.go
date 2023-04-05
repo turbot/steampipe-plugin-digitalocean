@@ -7,9 +7,9 @@ import (
 
 	"github.com/digitalocean/godo"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableDigitalOceanKey(ctx context.Context) *plugin.Table {
@@ -77,7 +77,7 @@ func getKey(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (in
 		plugin.Logger(ctx).Error("digitalocean_key.getKey", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	id := int(quals["id"].GetInt64Value())
 	fingerprint := quals["fingerprint"].GetStringValue()
 	var result *godo.Key

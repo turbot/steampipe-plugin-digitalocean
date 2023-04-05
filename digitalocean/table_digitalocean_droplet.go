@@ -6,9 +6,9 @@ import (
 
 	"github.com/digitalocean/godo"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableDigitalOceanDroplet(ctx context.Context) *plugin.Table {
@@ -100,7 +100,7 @@ func getDroplet(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData)
 		plugin.Logger(ctx).Error("digitalocean_droplet.getDroplet", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	id := int(quals["id"].GetInt64Value())
 	result, resp, err := conn.Droplets.Get(ctx, id)
 	if err != nil {

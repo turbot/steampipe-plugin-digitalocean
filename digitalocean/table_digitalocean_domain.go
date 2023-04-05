@@ -6,9 +6,9 @@ import (
 
 	"github.com/digitalocean/godo"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 //// TABLE DEFINITION
@@ -108,7 +108,7 @@ func getDomain(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		return nil, err
 	}
 
-	name := d.KeyColumnQuals["name"].GetStringValue()
+	name := d.EqualsQuals["name"].GetStringValue()
 
 	// Handle empty name
 	if name == "" {
