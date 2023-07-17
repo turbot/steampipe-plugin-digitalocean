@@ -28,7 +28,7 @@ select
 from
   digitalocean_region
  ```
- 
+
  ```
 +------+-------------+-----------+
 | slug | name        | available |
@@ -70,35 +70,64 @@ connection "digitalocean" {
 }
 ```
 
-### Example Configurations
+## Multi-Account Connections
 
-- Connect to a single account:
+You may create multiple digitalocean connections:
 
-  ```hcl
-  connection "digitalocean_my_account" {
-    plugin = "digitalocean"
-    token  = "1646968370949-df954218b5da5b8614c85cc454136b27"
-  }
-  ```
+```hcl
+connection "do_dev" {
+  plugin    = "digitalocean"
+  token     = "1646968370949-df954218b5da5b8614c85cc4541abcde"
+}
 
-- Create connections to multiple accounts:
+connection "do_qa" {
+  plugin    = "digitalocean"
+  token     = "1646968370949-df954218b5da5b8614c85cc4541fghij"
+}
 
-  ```hcl
-  connection "account_aaa" {
-    plugin    = "digitalocean"
-    token     = "1646968370949-df954218b5da5b8614c85cc4541abcde"
-  }
+connection "do_prod" {
+  plugin    = "digitalocean"
+  token     = "1646968370949-df954218b5da5b8614c85cc4541klmno"
+}
+```
 
-  connection "account_bbb" {
-    plugin    = "digitalocean"
-    token     = "1646968370949-df954218b5da5b8614c85cc4541fghij"
-  }
+Each connection is implemented as a distinct [Postgres schema](https://www.postgresql.org/docs/current/ddl-schemas.html). As such, you can use qualified table names to query a specific connection:
 
-  connection "account_ccc" {
-    plugin    = "digitalocean"
-    token     = "1646968370949-df954218b5da5b8614c85cc4541klmno"
-  }
-  ```
+```sql
+select * from do_qa.digitalocean_project
+```
+
+You can create multi-account connections by using an [**aggregator** connection](https://steampipe.io/docs/using-steampipe/managing-connections#using-aggregators). Aggregators allow you to query data from multiple connections for a plugin as if they are a single connection.
+
+```hcl
+connection "do_all" {
+  plugin      = "digitalocean"
+  type        = "aggregator"
+  connections = ["do_dev", "do_qa", "do_prod"]
+}
+```
+
+Querying tables from this connection will return results from the `do_dev`, `do_qa`, and `do_prod` connections:
+
+```sql
+select * from do_all.digitalocean_project
+```
+
+Alternatively, you can use an unqualified name and it will be resolved according to the [Search Path](https://steampipe.io/docs/guides/search-path). It's a good idea to name your aggregator first alphabetically so that it is the first connection in the search path (i.e. `do_all` comes before `do_dev`):
+
+```sql
+select * from digitalocean_project
+```
+
+Steampipe supports the `*` wildcard in the connection names. For example, to aggregate all the digitalocean plugin connections whose names begin with `do_`:
+
+```hcl
+connection "do_all" {
+  type        = "aggregator"
+  plugin      = "digitalocean"
+  connections = ["do_*"]
+}
+```
 
 ## Get Involved
 
