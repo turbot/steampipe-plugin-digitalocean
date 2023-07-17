@@ -81,7 +81,7 @@ connection "digitalocean_my_account" {
 }
 ```
 
-### Multi-Account Connections
+## Multi-Account Connections
 
 You may create multiple digitalocean connections:
 
