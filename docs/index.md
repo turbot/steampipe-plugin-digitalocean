@@ -70,17 +70,6 @@ connection "digitalocean" {
 }
 ```
 
-### Example Configurations
-
-Connect to a single account:
-
-```hcl
-connection "digitalocean_my_account" {
-  plugin = "digitalocean"
-  token  = "1646968370949-df954218b5da5b8614c85cc454136b27"
-}
-```
-
 ## Multi-Account Connections
 
 You may create multiple digitalocean connections:
@@ -108,7 +97,7 @@ Each connection is implemented as a distinct [Postgres schema](https://www.postg
 select * from do_qa.digitalocean_project
 ```
 
-You can multi-account connections by using an [**aggregator** connection](https://steampipe.io/docs/using-steampipe/managing-connections#using-aggregators). Aggregators allow you to query data from multiple connections for a plugin as if they are a single connection.
+You can create multi-account connections by using an [**aggregator** connection](https://steampipe.io/docs/using-steampipe/managing-connections#using-aggregators). Aggregators allow you to query data from multiple connections for a plugin as if they are a single connection.
 
 ```hcl
 connection "do_all" {
@@ -124,7 +113,7 @@ Querying tables from this connection will return results from the `do_dev`, `do_
 select * from do_all.digitalocean_project
 ```
 
-Alternatively, can use an unqualified name and it will be resolved according to the [Search Path](https://steampipe.io/docs/guides/search-path). It's a good idea to name your aggregator first alphbetically, so that it is the first connection in the search path (i.e. `do_all` comes before `do_dev`):
+Alternatively, you can use an unqualified name and it will be resolved according to the [Search Path](https://steampipe.io/docs/guides/search-path). It's a good idea to name your aggregator first alphabetically so that it is the first connection in the search path (i.e. `do_all` comes before `do_dev`):
 
 ```sql
 select * from digitalocean_project
