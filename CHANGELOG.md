@@ -2,7 +2,7 @@
 
 _Enhancements_
 
-- Updated the `docs/index.md` file to include multi-project configuration examples. ([#79](https://github.com/turbot/steampipe-plugin-digitalocean/pull/79))
+- Updated the `docs/index.md` file to include multi-account configuration examples. ([#79](https://github.com/turbot/steampipe-plugin-digitalocean/pull/79))
 
 ## v0.13.0 [2023-06-20]
 
