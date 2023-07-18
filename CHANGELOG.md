@@ -1,3 +1,9 @@
+## v0.14.0 [2023-07-17]
+
+_Enhancements_
+
+- Updated the `docs/index.md` file to include multi-account configuration examples. ([#79](https://github.com/turbot/steampipe-plugin-digitalocean/pull/79))
+
 ## v0.13.0 [2023-06-20]
 
 _Dependencies_
