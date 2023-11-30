@@ -1,10 +1,20 @@
-# Table: digitalocean_kubernetes_cluster
+---
+title: "Steampipe Table: digitalocean_kubernetes_cluster - Query DigitalOcean Kubernetes Clusters using SQL"
+description: "Allows users to query DigitalOcean Kubernetes Clusters, specifically the cluster's ID, name, region, version, and other metadata, providing insights into the cluster's configuration and status."
+---
 
-DigitalOcean Kubernetes (DOKS) is a managed Kubernetes service that lets you deploy Kubernetes clusters without the complexities of handling the control plane and containerized infrastructure. Clusters are compatible with standard Kubernetes toolchains and integrate natively with DigitalOcean Load Balancers and block storage volumes.
+# Table: digitalocean_kubernetes_cluster - Query DigitalOcean Kubernetes Clusters using SQL
+
+DigitalOcean Kubernetes (DOKS) is a managed Kubernetes service that lets you deploy, manage, and scale containerized applications using Kubernetes. It provides developers with the flexibility to ship and scale applications without the overhead of managing the underlying infrastructure. DOKS is integrated with the DigitalOcean developer cloud stack, offering seamless management of Kubernetes clusters.
+
+## Table Usage Guide
+
+The `digitalocean_kubernetes_cluster` table provides insights into Kubernetes clusters within the DigitalOcean cloud platform. As a DevOps engineer, explore cluster-specific details through this table, including cluster version, status, and associated metadata. Utilize it to uncover information about your Kubernetes deployments, such as the clusters' current version, their location, and their current running status.
 
 ## Examples
 
 ### Basic info
+Explore which DigitalOcean Kubernetes clusters are currently active, along with their associated subnet and IP address details. This can be useful for managing and monitoring your cloud resources effectively.
 
 ```sql
 select
@@ -17,6 +27,7 @@ from
 ```
 
 ### List clusters that are not running
+Explore which DigitalOcean Kubernetes clusters are not currently running. This can be useful for identifying potential issues or managing resource allocation.
 
 ```sql
 select
@@ -31,6 +42,7 @@ where
 ```
 
 ### List clusters with auto-upgrade not enabled
+Analyze the settings to understand which Kubernetes clusters on DigitalOcean have not enabled the auto-upgrade feature. This can help in ensuring that your systems are always up-to-date with the latest features and security patches.
 
 ```sql
 select
