@@ -16,7 +16,14 @@ The `digitalocean_bill` table provides insights into the billing information wit
 ### List all bills
 Explore your billing history on DigitalOcean to better understand your usage patterns and costs. This can help in budget management and predicting future expenses.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  digitalocean_bill;
+```
+
+```sql+sqlite
 select
   *
 from
@@ -26,10 +33,22 @@ from
 ### Amounts by year
 Explore which years had the highest total payments in your DigitalOcean account. This can be useful for financial planning and budgeting purposes.
 
-```sql
+```sql+postgres
 select
   extract(year from date) as year,
   sum(- to_number(amount,'L9G999g999.99')) as payment
+from
+  digitalocean_bill
+where
+  type = 'Payment'
+group by
+  year;
+```
+
+```sql+sqlite
+select
+  strftime('%Y', date) as year,
+  sum(- cast(amount as decimal)) as payment
 from
   digitalocean_bill
 where

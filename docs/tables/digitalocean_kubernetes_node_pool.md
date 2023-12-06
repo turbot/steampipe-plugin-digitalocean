@@ -17,7 +17,7 @@ The `digitalocean_kubernetes_node_pool` table provides insights into Kubernetes 
 ### Basic info
 Analyze the settings to understand the configuration of DigitalOcean Kubernetes node pools. This can help in managing resources and scaling strategies more effectively.
 
-```sql
+```sql+postgres
 select
   id,
   name,
@@ -27,10 +27,20 @@ from
   digitalocean_kubernetes_node_pool;
 ```
 
+```sql+sqlite
+select
+  id,
+  name,
+  cluster_id,
+  auto_scale
+from
+  digitalocean_kubernetes_node_pool;
+```
+
 ### List node pools with autoscaling disabled
 Explore which node pools within your Kubernetes cluster have autoscaling disabled. This is beneficial for understanding your resource utilization and identifying potential areas for optimization.
 
-```sql
+```sql+postgres
 select
   id,
   name,
@@ -42,10 +52,32 @@ where
   not auto_scale;
 ```
 
+```sql+sqlite
+select
+  id,
+  name,
+  cluster_id,
+  auto_scale
+from
+  digitalocean_kubernetes_node_pool
+where
+  auto_scale = 0;
+```
+
 ### Count numbers of nodes per node pool
 Explore the distribution of nodes within your DigitalOcean Kubernetes clusters. This query helps to balance workload by showing the number of nodes in each node pool.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  cluster_id,
+  count as node_count
+from
+  digitalocean_kubernetes_node_pool;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -58,7 +90,7 @@ from
 ### Get node details of node pools
 Discover the details of your node pools, including creation and update times, to understand their status and manage them more effectively. This can be particularly useful in managing resources and troubleshooting issues within your digital ocean Kubernetes environment.
 
-```sql
+```sql+postgres
 select
   p.id,
   p.name,
@@ -73,10 +105,38 @@ from
   jsonb_array_elements(nodes) as n;
 ```
 
+```sql+sqlite
+select
+  p.id,
+  p.name,
+  json_extract(n.value, '$.created_at') as node_created_at,
+  json_extract(n.value, '$.droplet_id') as node_droplet_id,
+  json_extract(n.value, '$.id') as node_id,
+  json_extract(n.value, '$.name') as node_name,
+  json_extract(n.value, '$.status') as node_status,
+  json_extract(n.value, '$.updated_at') as node_updated_at
+from
+  digitalocean_kubernetes_node_pool as p,
+  json_each(p.nodes) as n;
+```
+
 ### Get the top five node pools with the most nodes
 Analyze the settings to understand which five node pools in your DigitalOcean Kubernetes service have the highest number of nodes. This can help manage resources by identifying areas of high resource concentration.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  cluster_id,
+  max_nodes
+from
+  digitalocean_kubernetes_node_pool
+order by
+  max_nodes desc
+limit 5;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -92,7 +152,7 @@ limit 5;
 ### Get cluster details for the node pools
 Determine the status and endpoint details of your DigitalOcean Kubernetes clusters by examining the associated node pools. This can aid in monitoring cluster health and connectivity.
 
-```sql
+```sql+postgres
 select
   n.id as node_pool_id,
   n.name,
@@ -105,4 +165,19 @@ from
   digitalocean_kubernetes_cluster as c
 where
   c.id = cluster_id;
+```
+
+```sql+sqlite
+select
+  n.id as node_pool_id,
+  n.name,
+  n.cluster_id,
+  c.status as cluster_status,
+  c.cluster_subnet,
+  c.endpoint as cluster_endpoint
+from
+  digitalocean_kubernetes_node_pool as n,
+  digitalocean_kubernetes_cluster as c
+where
+  c.id = n.cluster_id;
 ````

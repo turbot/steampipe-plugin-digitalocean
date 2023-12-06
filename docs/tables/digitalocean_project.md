@@ -16,7 +16,14 @@ The `digitalocean_project` table provides insights into projects within DigitalO
 ### List all projects
 Explore all your projects on DigitalOcean to gain an overview of your current work. This can help you manage resources efficiently and plan future projects effectively.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  digitalocean_project;
+```
+
+```sql+sqlite
 select
   *
 from
@@ -26,7 +33,16 @@ from
 ### Get a project by ID
 This example demonstrates how to locate a specific project within DigitalOcean's resources. It's particularly useful when you need to quickly access or review the details of a specific project, identified by its unique ID.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  digitalocean_project
+where
+  id = '59137997-528e-45ef-9521-db041f2c7d94';
+```
+
+```sql+sqlite
 select
   *
 from
@@ -38,11 +54,20 @@ where
 ### Get the default project
 Explore the default project settings in your DigitalOcean account to understand its configuration and operational parameters. This can help you assess the current setup and make necessary adjustments for optimal performance.
 
-```sql
+```sql+postgres
 select
   *
 from
   digitalocean_project
 where
   is_default;
+```
+
+```sql+sqlite
+select
+  *
+from
+  digitalocean_project
+where
+  is_default = 1;
 ```

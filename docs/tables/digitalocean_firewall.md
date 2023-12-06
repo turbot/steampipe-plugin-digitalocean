@@ -16,7 +16,17 @@ The `digitalocean_firewall` table provides insights into firewall configurations
 ### Basic info
 Explore which firewalls have unrestricted inbound access, potentially posing a security risk. This is useful for identifying and mitigating potential vulnerabilities in your network's security.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  created_at,
+  status
+from
+  digitalocean_firewall;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -28,7 +38,7 @@ from
 
 ## List firewalls whose inbound access is not restricted
 
-```sql
+```sql+postgres
 select
   id,
   name,
@@ -41,10 +51,35 @@ where
   i -> 'sources' -> 'addresses' = '["0.0.0.0/0","::/0"]';
 ```
 
+```sql+sqlite
+select
+  digitalocean_firewall.id,
+  digitalocean_firewall.name,
+  digitalocean_firewall.created_at,
+  digitalocean_firewall.status
+from
+  digitalocean_firewall,
+  json_each(inbound_rules) as i
+where
+  json_extract(i.value, '$.sources.addresses') = '["0.0.0.0/0","::/0"]';
+```
+
 ### List failed firewalls
 Identify instances where firewall creation attempts have been unsuccessful. This could be useful in troubleshooting and ensuring the security of your digital assets.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  created_at,
+  status
+from
+  digitalocean_firewall
+where
+  status = 'failed';
+```
+
+```sql+sqlite
 select
   id,
   name,

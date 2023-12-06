@@ -16,7 +16,16 @@ The `digitalocean_domain` table provides insights into the DNS records within th
 ### Basic info
 Explore the various domains on DigitalOcean and understand their unique identifiers and time to live (TTL) settings. This can be helpful for managing and optimizing your domain configurations.
 
-```sql
+```sql+postgres
+select
+  name,
+  urn,
+  ttl
+from
+  digitalocean_domain;
+```
+
+```sql+sqlite
 select
   name,
   urn,

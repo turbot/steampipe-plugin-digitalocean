@@ -16,7 +16,16 @@ The `digitalocean_container_registry` table provides insights into Container Reg
 ### Basic info
 Explore the creation timeline of your digital ocean container registries. This will help you understand when each registry was established, providing insights into your resource allocation and usage history.
 
-```sql
+```sql+postgres
+select
+  name,
+  urn,
+  created_at
+from
+  digitalocean_container_registry;
+```
+
+```sql+sqlite
 select
   name,
   urn,
@@ -28,7 +37,7 @@ from
 ### Get container registry details created in last 30 days
 Discover the details of newly created container registries within the past month. This is useful for tracking recent activity and understanding the storage usage of these registries.
 
-```sql
+```sql+postgres
 select
   name,
   urn,
@@ -39,4 +48,17 @@ from
   digitalocean_container_registry
 where
   created_at >= now() - interval '30' day;
+```
+
+```sql+sqlite
+select
+  name,
+  urn,
+  created_at,
+  storage_usage_bytes_updated_at,
+  storage_usage_bytes
+from
+  digitalocean_container_registry
+where
+  created_at >= datetime('now', '-30 day');
 ```

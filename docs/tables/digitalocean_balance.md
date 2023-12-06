@@ -16,7 +16,14 @@ The `digitalocean_balance` table provides insights into the account's balance an
 ### Get the balance
 Explore your DigitalOcean account's current balance to understand your usage costs and manage your budget effectively. This helps you keep track of your expenses and plan for future resource allocation.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  digitalocean_balance;
+```
+
+```sql+sqlite
 select
   *
 from

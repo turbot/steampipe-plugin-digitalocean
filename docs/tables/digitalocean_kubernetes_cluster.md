@@ -16,7 +16,17 @@ The `digitalocean_kubernetes_cluster` table provides insights into Kubernetes cl
 ### Basic info
 Explore which DigitalOcean Kubernetes clusters are currently active, along with their associated subnet and IP address details. This can be useful for managing and monitoring your cloud resources effectively.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  cluster_subnet,
+  ipv4
+from
+  digitalocean_kubernetes_cluster;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -29,7 +39,19 @@ from
 ### List clusters that are not running
 Explore which DigitalOcean Kubernetes clusters are not currently running. This can be useful for identifying potential issues or managing resource allocation.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  cluster_subnet,
+  ipv4
+from
+  digitalocean_kubernetes_cluster
+where
+  status <> 'running';
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -44,7 +66,7 @@ where
 ### List clusters with auto-upgrade not enabled
 Analyze the settings to understand which Kubernetes clusters on DigitalOcean have not enabled the auto-upgrade feature. This can help in ensuring that your systems are always up-to-date with the latest features and security patches.
 
-```sql
+```sql+postgres
 select
   id,
   name,
@@ -54,4 +76,16 @@ from
   digitalocean_kubernetes_cluster
 where
   not auto_upgrade;
+```
+
+```sql+sqlite
+select
+  id,
+  name,
+  cluster_subnet,
+  ipv4
+from
+  digitalocean_kubernetes_cluster
+where
+  auto_upgrade = 0;
 ```

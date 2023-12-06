@@ -16,7 +16,7 @@ The `digitalocean_floating_ip` table provides insights into the Floating IPs wit
 ### List all Floating IPs
 Discover the segments that have floating IP addresses assigned to them, including the associated droplet names and regions. This is useful to manage and monitor the distribution and usage of floating IPs across different regions and droplets.
 
-```sql
+```sql+postgres
 select
   ip,
   droplet ->> 'name' as droplet_name,
@@ -25,10 +25,19 @@ from
   digitalocean_floating_ip;
 ```
 
+```sql+sqlite
+select
+  ip,
+  json_extract(droplet, '$.name') as droplet_name,
+  json_extract(region, '$.slug') as region_slug
+from
+  digitalocean_floating_ip;
+```
+
 ### Get a Floating IP by IP
 Discover the segments that have a specific IP address by identifying the associated droplet name and region. This is useful to understand the distribution and usage of floating IPs within your digital ocean infrastructure.
 
-```sql
+```sql+postgres
 select
   ip,
   droplet ->> 'name' as droplet_name,
@@ -39,10 +48,21 @@ where
   ip = '161.35.249.180';
 ```
 
+```sql+sqlite
+select
+  ip,
+  json_extract(droplet, '$.name') as droplet_name,
+  json_extract(region, '$.slug') as region_slug
+from
+  digitalocean_floating_ip
+where
+  ip = '161.35.249.180';
+```
+
 ### List all Floating IPs in New York regions
 Explore which floating IPs are associated with the New York regions in your DigitalOcean account. This allows you to easily manage and allocate your resources within specific geographic locations.
 
-```sql
+```sql+postgres
 select
   ip,
   droplet ->> 'name' as droplet_name,
@@ -51,4 +71,15 @@ from
   digitalocean_floating_ip
 where
   region ->> 'slug' like 'ny%';
+```
+
+```sql+sqlite
+select
+  ip,
+  json_extract(droplet, '$.name') as droplet_name,
+  json_extract(region, '$.slug') as region_slug
+from
+  digitalocean_floating_ip
+where
+  json_extract(region, '$.slug') like 'ny%';
 ```

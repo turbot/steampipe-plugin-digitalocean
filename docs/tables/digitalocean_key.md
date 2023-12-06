@@ -16,7 +16,14 @@ The `digitalocean_key` table provides insights into SSH keys within DigitalOcean
 ### List all keys
 Explore all the keys available in your DigitalOcean account to better manage your resources and security settings. This can assist in identifying unused or unnecessary keys, thereby helping to streamline operations and enhance security.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  digitalocean_key;
+```
+
+```sql+sqlite
 select
   *
 from
@@ -26,7 +33,18 @@ from
 ### Get a Key by ID
 Analyze the settings to understand the specific details of a digital key using its unique identifier. This can be useful in managing and validating your digital keys for secure operations.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  fingerprint
+from
+  digitalocean_key
+where
+  id = 29280599;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -40,7 +58,7 @@ where
 ### Get a Key by Fingerprint
 Explore the specific digital key associated with a given fingerprint, which is useful for identifying and verifying the ownership of resources in a DigitalOcean environment. This could be particularly beneficial in scenarios where you need to audit resource access or troubleshoot permission issues.
 
-```sql
+```sql+postgres
 select
   id,
   name,
@@ -48,5 +66,16 @@ select
 from
   digitalocean_key
 where
-  fingerprint = '3a:84:c2:cc:77:e9:ea:95:5b:45:c3:4d:92:fc:4a:ac'
+  fingerprint = '3a:84:c2:cc:77:e9:ea:95:5b:45:c3:4d:92:fc:4a:ac';
+```
+
+```sql+sqlite
+select
+  id,
+  name,
+  fingerprint
+from
+  digitalocean_key
+where
+  fingerprint = '3a:84:c2:cc:77:e9:ea:95:5b:45:c3:4d:92:fc:4a:ac';
 ```

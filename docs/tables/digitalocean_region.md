@@ -16,7 +16,14 @@ The `digitalocean_region` table provides insights into the Regions within Digita
 ### List all regions
 Explore the various regions available in your DigitalOcean account. This is useful for planning resource distribution and managing data residency requirements.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  digitalocean_region;
+```
+
+```sql+sqlite
 select
   *
 from
@@ -26,7 +33,16 @@ from
 ### New York regions
 Explore regions within the DigitalOcean service that are based in New York to better manage resources or optimize network latency for local users.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  digitalocean_region
+where
+  slug like 'ny%';
+```
+
+```sql+sqlite
 select
   *
 from
@@ -38,7 +54,7 @@ where
 ### Regions available for new droplets
 Explore which regions are currently available for deploying new droplets on DigitalOcean. This can be helpful for planning deployments and ensuring optimal location selection.
 
-```sql
+```sql+postgres
 select
   slug,
   name,
@@ -49,10 +65,21 @@ where
   available;
 ```
 
+```sql+sqlite
+select
+  slug,
+  name,
+  available
+from
+  digitalocean_region
+where
+  available = 1;
+```
+
 ### Regions where the storage feature is available
 Discover the regions where the storage feature is available. This can be useful for understanding where you can deploy resources that require this feature.
 
-```sql
+```sql+postgres
 select
   slug,
   name,
@@ -61,4 +88,8 @@ from
   digitalocean_region
 where
   features ? 'storage';
+```
+
+```sql+sqlite
+Error: SQLite does not support the '?' operator for JSON objects.
 ```

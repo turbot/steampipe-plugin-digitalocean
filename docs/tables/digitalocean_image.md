@@ -16,7 +16,14 @@ The `digitalocean_image` table provides insights into Images within DigitalOcean
 ### List all images
 Explore all the available images in your DigitalOcean environment to understand what resources are currently in use. This helps in managing resources efficiently by identifying unused or redundant images.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  digitalocean_image;
+```
+
+```sql+sqlite
 select
   *
 from
@@ -26,7 +33,7 @@ from
 ### List custom images
 Explore which custom images in your DigitalOcean account are not public. This can help maintain privacy and security by ensuring your custom images are not accessible to the general public.
 
-```sql
+```sql+postgres
 select
   slug,
   distribution,
@@ -37,10 +44,33 @@ where
   not public;
 ```
 
+```sql+sqlite
+select
+  slug,
+  distribution,
+  error_message
+from
+  digitalocean_image
+where
+  public = 0;
+```
+
 ### Get Image by ID
 Explore which digital ocean image is associated with a specific ID to better manage and organize your resources. This is particularly useful in scenarios where you need to quickly identify and access specific images based on their unique identifiers.
 
-```sql
+```sql+postgres
+select
+  id,
+  slug,
+  name,
+  distribution
+from
+  digitalocean_image
+where
+  id = 29280599;
+```
+
+```sql+sqlite
 select
   id,
   slug,
@@ -55,7 +85,19 @@ where
 ### Get Image by Slug
 Discover the segments that use a specific image in your DigitalOcean environment. This is useful to understand where and how frequently certain images are being deployed, aiding in resource management and optimization.
 
-```sql
+```sql+postgres
+select
+  id,
+  slug,
+  name,
+  distribution
+from
+  digitalocean_image
+where
+  id = 'freebsd-11-x64-zfs';
+```
+
+```sql+sqlite
 select
   id,
   slug,
@@ -70,7 +112,7 @@ where
 ### Public images by distribution
 Analyze the number of public images available for each distribution in DigitalOcean to understand their popularity and usage trends. This can be helpful in making informed decisions about which distributions to support or use based on their community adoption.
 
-```sql
+```sql+postgres
 select
   distribution,
   count(id)
@@ -82,10 +124,33 @@ order by
   count desc;
 ```
 
+```sql+sqlite
+select
+  distribution,
+  count(id)
+from
+  digitalocean_image
+group by
+  distribution
+order by
+  count(id) desc;
+```
+
 ### List all backups
 Explore which digital images have been backed up, understanding their size and type to manage storage and ensure data security effectively.
 
-```sql
+```sql+postgres
+select
+  name,
+  size_gigabytes,
+  type
+from
+  digitalocean_image
+where
+  type = 'backup';
+```
+
+```sql+sqlite
 select
   name,
   size_gigabytes,

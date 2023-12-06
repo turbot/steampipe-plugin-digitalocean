@@ -16,7 +16,17 @@ The `digitalocean_app` table provides insights into Apps deployed on the Digital
 ### Basic info
 Explore the basic information about your DigitalOcean applications, such as their unique identifiers and creation dates, to gain a better understanding of your resources. This can be particularly useful for auditing purposes or when planning resource management strategies.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  urn,
+  created_at
+from
+  digitalocean_app;
+```
+
+```sql+sqlite
 select
   id,
   name,
