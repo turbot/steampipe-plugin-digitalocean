@@ -2,17 +2,10 @@ package digitalocean
 
 import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/schema"
 )
 
 type digitaloceanConfig struct {
-	Token *string `cty:"token"`
-}
-
-var ConfigSchema = map[string]*schema.Attribute{
-	"token": {
-		Type: schema.TypeString,
-	},
+	Token *string `hcl:"token"`
 }
 
 func ConfigInstance() interface{} {

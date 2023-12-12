@@ -12,7 +12,6 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		Name: "steampipe-plugin-digitalocean",
 		ConnectionConfigSchema: &plugin.ConnectionConfigSchema{
 			NewInstance: ConfigInstance,
-			Schema:      ConfigSchema,
 		},
 		DefaultTransform: transform.FromJSONTag().NullIfZero(),
 		TableMap: map[string]*plugin.Table{
