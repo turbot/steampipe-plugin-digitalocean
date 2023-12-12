@@ -16,7 +16,7 @@ Query your DigitalOcean infrastructure including droplets, databases, networks, 
 
 [DigitalOcean](https://www.digitalocean.com/) provides scalable and on-demand cloud infrastructure solutions for hosting or storage needs.
 
-[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+[Steampipe](https://steampipe.io) is an open-source zero-ETL engine to instantly query cloud APIs using SQL.
 
 For example:
 
