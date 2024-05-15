@@ -24,7 +24,7 @@ func tableDigitalOceanAlertPolicy(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.SingleColumn("uuid"),
 			Hydrate:    getAlertPolicy,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "uuid",
 				Type:        proto.ColumnType_STRING,
@@ -104,7 +104,7 @@ func tableDigitalOceanAlertPolicy(ctx context.Context) *plugin.Table {
 				Description: resourceInterfaceDescription("akas"),
 				Transform:   transform.FromValue().Transform(alertPolicyToURN).Transform(ensureStringArray),
 			},
-		},
+		}),
 	}
 }
 
