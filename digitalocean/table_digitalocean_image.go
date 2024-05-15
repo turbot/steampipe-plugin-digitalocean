@@ -23,7 +23,7 @@ func tableDigitalOceanImage(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.AnyColumn([]string{"id", "slug"}),
 			Hydrate:    getImage,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "id", Type: proto.ColumnType_INT, Description: "A unique number that can be used to identify and reference a specific image."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The display name that has been given to an image. This is what is shown in the control panel and is generally a descriptive title for the image in question."},
@@ -45,7 +45,7 @@ func tableDigitalOceanImage(ctx context.Context) *plugin.Table {
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromValue().Transform(imageToURN).Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromField("Tags").Transform(labelsToTagsMap), Description: resourceInterfaceDescription("tags")},
 			{Name: "title", Type: proto.ColumnType_STRING, Transform: transform.FromField("Name"), Description: resourceInterfaceDescription("title")},
-		},
+		}),
 	}
 }
 

@@ -22,7 +22,7 @@ func tableDigitalOceanDroplet(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.SingleColumn("id"),
 			Hydrate:    getDroplet,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "id", Type: proto.ColumnType_INT, Description: "A unique identifier for each Droplet instance."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The human-readable name set for the Droplet instance."},
@@ -56,7 +56,7 @@ func tableDigitalOceanDroplet(ctx context.Context) *plugin.Table {
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromMethod("URN").Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromField("Tags").Transform(labelsToTagsMap), Description: resourceInterfaceDescription("tags")},
 			{Name: "title", Type: proto.ColumnType_STRING, Transform: transform.FromField("Name"), Description: resourceInterfaceDescription("title")},
-		},
+		}),
 	}
 }
 

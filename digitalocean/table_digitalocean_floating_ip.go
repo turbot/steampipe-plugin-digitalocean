@@ -22,7 +22,7 @@ func tableDigitalOceanFloatingIP(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.SingleColumn("ip"),
 			Hydrate:    getFloatingIP,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "ip", Type: proto.ColumnType_IPADDR, Description: "The public IP address of the floating IP. It also serves as its identifier."},
 			// Other columns
@@ -35,7 +35,7 @@ func tableDigitalOceanFloatingIP(ctx context.Context) *plugin.Table {
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromMethod("URN").Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromConstant(map[string]bool{}), Description: resourceInterfaceDescription("tags")},
 			{Name: "title", Type: proto.ColumnType_STRING, Transform: transform.FromField("IP"), Description: resourceInterfaceDescription("title")},
-		},
+		}),
 	}
 }
 

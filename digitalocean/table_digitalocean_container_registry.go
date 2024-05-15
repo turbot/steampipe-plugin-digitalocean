@@ -19,7 +19,7 @@ func tableDigitalOceanContainerRegistry(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: getContainerRegistry,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "name",
 				Type:        proto.ColumnType_STRING,
@@ -62,7 +62,7 @@ func tableDigitalOceanContainerRegistry(ctx context.Context) *plugin.Table {
 				Description: resourceInterfaceDescription("akas"),
 				Transform:   transform.FromValue().Transform(registryToURN).Transform(ensureStringArray),
 			},
-		},
+		}),
 	}
 }
 

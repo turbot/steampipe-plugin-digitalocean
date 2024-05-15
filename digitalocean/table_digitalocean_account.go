@@ -17,7 +17,7 @@ func tableDigitalOceanAccount(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listAccount,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "email", Type: proto.ColumnType_STRING, Description: "The email address used by the current user to register for DigitalOcean."},
 			// Other columns
@@ -32,7 +32,7 @@ func tableDigitalOceanAccount(ctx context.Context) *plugin.Table {
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromValue().Transform(accountAkas), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromConstant(map[string]bool{}), Description: resourceInterfaceDescription("tags")},
 			{Name: "title", Type: proto.ColumnType_STRING, Transform: transform.FromField("Email"), Description: resourceInterfaceDescription("title")},
-		},
+		}),
 	}
 }
 

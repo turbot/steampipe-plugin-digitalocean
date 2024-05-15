@@ -22,7 +22,7 @@ func tableDigitalOceanAction(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.SingleColumn("id"),
 			Hydrate:    getAction,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "id", Type: proto.ColumnType_INT, Description: "A unique numeric ID that can be used to identify and reference an action."},
 			{Name: "resource_id", Type: proto.ColumnType_INT, Description: "A unique identifier for the resource that the action is associated with."},
@@ -35,7 +35,7 @@ func tableDigitalOceanAction(ctx context.Context) *plugin.Table {
 			{Name: "region_slug", Type: proto.ColumnType_STRING, Description: "The region where the action occurred."},
 			{Name: "resource_type", Type: proto.ColumnType_STRING, Description: "The type of resource that the action is associated with."},
 			{Name: "status", Type: proto.ColumnType_STRING, Description: "The current status of the action.  This can be \"in-progress\", \"completed\", or \"errored\"."},
-		},
+		}),
 	}
 }
 

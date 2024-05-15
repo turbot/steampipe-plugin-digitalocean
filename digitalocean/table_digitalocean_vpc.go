@@ -22,7 +22,7 @@ func tableDigitalOceanVPC(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.SingleColumn("id"),
 			Hydrate:    getVPC,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "A unique ID that can be used to identify and reference the VPC."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The name of the VPC. Must be unique and may only contain alphanumeric characters, dashes, and periods."},
@@ -38,7 +38,7 @@ func tableDigitalOceanVPC(ctx context.Context) *plugin.Table {
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromField("URN").Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromConstant(map[string]bool{}), Description: resourceInterfaceDescription("tags")},
 			{Name: "title", Type: proto.ColumnType_STRING, Transform: transform.FromField("Name"), Description: resourceInterfaceDescription("title")},
-		},
+		}),
 	}
 }
 
