@@ -17,7 +17,7 @@ func tableDigitalOceanSize(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listSize,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "slug", Type: proto.ColumnType_STRING, Description: "This is a boolean value that represents whether new Droplets can be created with this size."},
 			// Other columns
@@ -33,7 +33,7 @@ func tableDigitalOceanSize(ctx context.Context) *plugin.Table {
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromValue().Transform(sizeToURN).Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromConstant(map[string]bool{}), Description: resourceInterfaceDescription("tags")},
 			{Name: "title", Type: proto.ColumnType_STRING, Transform: transform.FromField("Slug"), Description: resourceInterfaceDescription("title")},
-		},
+		}),
 	}
 }
 

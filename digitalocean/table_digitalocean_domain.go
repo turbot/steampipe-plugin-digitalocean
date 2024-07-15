@@ -24,7 +24,7 @@ func tableDigitalOceanDomain(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.SingleColumn("name"),
 			Hydrate:    getDomain,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "name",
 				Type:        proto.ColumnType_STRING,
@@ -60,7 +60,7 @@ func tableDigitalOceanDomain(ctx context.Context) *plugin.Table {
 				Description: resourceInterfaceDescription("akas"),
 				Transform:   transform.FromValue().Transform(domainToURN).Transform(ensureStringArray),
 			},
-		},
+		}),
 	}
 }
 

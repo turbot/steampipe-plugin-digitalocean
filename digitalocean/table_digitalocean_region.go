@@ -17,7 +17,7 @@ func tableDigitalOceanRegion(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listRegion,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "slug", Type: proto.ColumnType_STRING, Description: "A human-readable string that is used as a unique identifier for each region."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The display name of the region. This will be a full name that is used in the control panel and other interfaces."},
@@ -29,7 +29,7 @@ func tableDigitalOceanRegion(ctx context.Context) *plugin.Table {
 			{Name: "akas", Type: proto.ColumnType_JSON, Transform: transform.FromValue().Transform(regionToURN).Transform(ensureStringArray), Description: resourceInterfaceDescription("akas")},
 			{Name: "tags", Type: proto.ColumnType_JSON, Transform: transform.FromConstant(map[string]bool{}), Description: resourceInterfaceDescription("tags")},
 			{Name: "title", Type: proto.ColumnType_STRING, Transform: transform.FromField("Name"), Description: resourceInterfaceDescription("title")},
-		},
+		}),
 	}
 }
 

@@ -26,7 +26,7 @@ func tableDigitalOceanKubernetesNodePool(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.AllColumns([]string{"id", "cluster_id"}),
 			Hydrate:    getKubernetesNodePool,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Type:        proto.ColumnType_STRING,
@@ -120,7 +120,7 @@ func tableDigitalOceanKubernetesNodePool(ctx context.Context) *plugin.Table {
 				Description: resourceInterfaceDescription("akas"),
 				Transform:   transform.FromValue().Transform(nodePoolToURN).Transform(ensureStringArray),
 			},
-		},
+		}),
 	}
 }
 

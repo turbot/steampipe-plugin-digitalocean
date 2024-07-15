@@ -16,7 +16,7 @@ func tableDigitalOceanBill(ctx context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listBill,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "date", Type: proto.ColumnType_TIMESTAMP, Description: "Time the billing history entry occured."},
 			// Other columns
@@ -25,7 +25,7 @@ func tableDigitalOceanBill(ctx context.Context) *plugin.Table {
 			{Name: "invoice_id", Type: proto.ColumnType_STRING, Description: "ID of the invoice associated with the billing history entry, if applicable."},
 			{Name: "invoice_uuid", Type: proto.ColumnType_STRING, Description: "UUID of the invoice associated with the billing history entry, if applicable."},
 			{Name: "type", Type: proto.ColumnType_STRING, Description: "Type of billing history entry."},
-		},
+		}),
 	}
 }
 

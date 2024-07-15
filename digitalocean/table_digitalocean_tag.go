@@ -22,12 +22,12 @@ func tableDigitalOceanTag(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.SingleColumn("name"),
 			Hydrate:    getTag,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			// Top columns
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "The name of the tag. Tags may contain letters, numbers, colons, dashes, and underscores. There is a limit of 255 characters per tag."},
 			{Name: "resource_count", Type: proto.ColumnType_INT, Transform: transform.FromField("Resources.Count"), Description: "The number of resources with this tag."},
 			{Name: "resources", Type: proto.ColumnType_JSON, Transform: transform.FromField("Resources"), Description: "An embedded object containing key value pairs of resource type and resource statistics. It also includes a count of the total number of resources tagged with the current tag as well as a last_tagged_uri attribute set to the last resource tagged with the current tag."},
-		},
+		}),
 	}
 }
 

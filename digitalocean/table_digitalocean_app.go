@@ -25,7 +25,7 @@ func tableDigitalOceanApp(ctx context.Context) *plugin.Table {
 			KeyColumns: plugin.SingleColumn("id"),
 			Hydrate:    getApp,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Type:        proto.ColumnType_STRING,
@@ -120,7 +120,7 @@ func tableDigitalOceanApp(ctx context.Context) *plugin.Table {
 				Description: resourceInterfaceDescription("akas"),
 				Transform:   transform.FromValue().Transform(appToURN).Transform(ensureStringArray),
 			},
-		},
+		}),
 	}
 }
 
