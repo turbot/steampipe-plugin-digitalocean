@@ -15,8 +15,8 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		},
 		ConnectionKeyColumns: []plugin.ConnectionKeyColumn{
 			{
-				Name:    "profile_id",
-				Hydrate: getProfileId,
+				Name:    "uuid",
+				Hydrate: getCurrentUserUuid,
 			},
 		},
 		DefaultTransform: transform.FromJSONTag().NullIfZero(),

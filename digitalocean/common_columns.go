@@ -12,31 +12,31 @@ import (
 func commonColumns(c []*plugin.Column) []*plugin.Column {
 	return append([]*plugin.Column{
 		{
-			Name:        "profile_id",
+			Name:        "uuid",
 			Description: "The unique universal identifier for the current user.",
 			Type:        proto.ColumnType_STRING,
-			Hydrate:     getProfileId,
+			Hydrate:     getCurrentUserUuid,
 			Transform:   transform.FromValue(),
 		},
 	}, c...)
 }
 
 // if the caching is required other than per connection, build a cache key for the call and use it in Memoize.
-var getProfileIdMemoized = plugin.HydrateFunc(getProfileIdUncached).Memoize(memoize.WithCacheKeyFunction(getProfileIdCacheKey))
+var getCurrentUserUuidMemoized = plugin.HydrateFunc(getCurrentUserUuidUncached).Memoize(memoize.WithCacheKeyFunction(getCurrentUserUuidCacheKey))
 
 // declare a wrapper hydrate function to call the memoized function
 // - this is required when a memoized function is used for a column definition
-func getProfileId(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	return getProfileIdMemoized(ctx, d, h)
+func getCurrentUserUuid(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	return getCurrentUserUuidMemoized(ctx, d, h)
 }
 
-// Build a cache key for the call to getProfileIdCacheKey.
-func getProfileIdCacheKey(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	key := "getProfileId"
+// Build a cache key for the call to getCurrentUserUuidCacheKey.
+func getCurrentUserUuidCacheKey(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	key := "getCurrentUserUuid"
 	return key, nil
 }
 
-func getProfileIdUncached(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func getCurrentUserUuidUncached(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	conn, err := connect(ctx, d)
 	if err != nil {
 		return nil, err
