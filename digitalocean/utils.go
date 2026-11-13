@@ -9,8 +9,8 @@ import (
 
 	"github.com/digitalocean/godo"
 
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin/transform"
 )
 
 func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
@@ -22,7 +22,9 @@ func connect(_ context.Context, d *plugin.QueryData) (*godo.Client, error) {
 
 	digitaloceanConfig := GetConfig(d.Connection)
 	if digitaloceanConfig.Token != nil {
-		os.Setenv("DIGITALOCEAN_TOKEN", *digitaloceanConfig.Token)
+		if err := os.Setenv("DIGITALOCEAN_TOKEN", *digitaloceanConfig.Token); err != nil {
+			return nil, err
+		}
 	}
 
 	token, ok := os.LookupEnv("DIGITALOCEAN_TOKEN")
